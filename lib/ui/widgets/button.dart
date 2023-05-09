@@ -5,10 +5,12 @@ import '../../constants/theme.dart';
 class MyButton extends StatelessWidget {
   final Function? onTap;
   final String? label;
+  final EdgeInsetsGeometry? padding;
 
   MyButton({
     this.onTap,
     this.label,
+    this.padding,
   });
 
   @override
@@ -17,17 +19,15 @@ class MyButton extends StatelessWidget {
       onTap: onTap as void Function()?,
       child: Container(
         height: 50,
-        width: 130,
+        width: 200, // increase the width to accommodate longer text
+        padding: padding,
         decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(30),
-      image: DecorationImage(
-      image: AssetImage(
-        "lib/img/loginbtn.png"
-      ),
-      fit: BoxFit.cover,
-      ),
-    
-    ),
+          borderRadius: BorderRadius.circular(30),
+          image: DecorationImage(
+            image: AssetImage("lib/img/loginbtn.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Center(
           child: Text(
             label!,

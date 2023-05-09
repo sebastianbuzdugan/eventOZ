@@ -264,14 +264,14 @@ class _HomeUserState extends State<HomeUser> {
          : 
  
          _buildBottomSheetButton(
-                  label: "I'M GOING",
+                  label: "GOING",
                   onTap: () {
                     _taskController.markTaskCompleted(task.id);
                     Get.back();
                   },
                   clr: Colors.green),
           _buildBottomSheetButton(
-              label: "Not Interested",
+              label: "NOT GOING",
               onTap: () {
                 _taskController.deleteTask(task);
                 Get.back();

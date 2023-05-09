@@ -1,24 +1,14 @@
 import 'dart:async';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loginv1/services/Database.dart';
-import 'package:loginv1/services/location.dart';
-import 'package:loginv1/services/weather.dart';
 import 'package:loginv1/ui/pages/firebase/addTaskFirebase.dart';
-import 'package:loginv1/ui/pages/location_screen.dart';
-import 'package:loginv1/ui/widgets/avatar.dart';
-import '../../controllers/auth_controller.dart';
-import '../widgets/bottomnavbar.dart';
 import '/controllers/task_controller.dart';
 import '/models/task.dart';
-import '/ui/pages/add_task_page.dart';
 import '../../constants/size_config.dart';
 import '../../constants/theme.dart';
 import '/ui/widgets/button.dart';
@@ -152,13 +142,14 @@ class _HomeState extends State<Home> {
           ),
           widget.isAdmin
               ? MyButton(
-                  label: '+addtask'.tr,
-                  onTap: () async {
-                    //await Get.to(AddTaskPage());
-                    await Get.to(AddTaskFirebase());
-                    _taskController.getTasks();
-                  },
-                )
+  label: '+addtask'.tr,
+  onTap: () async {
+    //await Get.to(AddTaskPage());
+    await Get.to(AddTaskFirebase());
+    _taskController.getTasks();
+  },
+  padding: EdgeInsets.all(16),
+)
               : const SizedBox.shrink(),
         ],
       ),
@@ -228,7 +219,7 @@ class _HomeState extends State<Home> {
                           children: [
                             GestureDetector(
                                 onTap: () {
-                                  showBottomSheet(context, task);
+                                //  showBottomSheet(context, task);
                                 },
                                 child: TaskTile(task)),
                           ],
@@ -250,7 +241,7 @@ class _HomeState extends State<Home> {
                           children: [
                             GestureDetector(
                                 onTap: () {
-                                  showBottomSheet(context, task);
+                                  //showBottomSheet(context, task);
                                 },
                                 child: TaskTile(task)),
                           ],
@@ -365,23 +356,32 @@ class _HomeState extends State<Home> {
           task.isCompleted == 1
               ? Container()
               : _buildBottomSheetButton(
-                  label: "I'M GOING",
+                  label: "GOING",
                   onTap: () {
                     _taskController.markTaskCompleted(task.id);
                     Get.back();
                   },
                   clr: Colors.green),
           _buildBottomSheetButton(
-              label: "Not Interested",
+              label: "NOT GOING",
               onTap: () {
-                _taskController.deleteTask(task);
+
+                //TO FIX THIS:
+                // _taskController.deleteTask(task);
+    //             FirebaseFirestore.instance
+    // .collection('tasks')
+    // .doc(task.id)
+    // .delete();
+
+    
                 Get.back();
               },
               clr: Colors.red[300]),
           SizedBox(
             height: 20,
           ),
-        ]),
+        ],
+        ),
       ),
     );
   }

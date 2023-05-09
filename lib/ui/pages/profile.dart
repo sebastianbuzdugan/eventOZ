@@ -57,7 +57,7 @@ class HomeUI extends StatelessWidget {
                         Text(
                             'home.adminUserLabel'.tr +
                                 ': ' +
-                                controller.admin.value.toString(),
+                                controller.admin.value.toString().tr,
                             style: TextStyle(fontSize: 16)),
                         FormVerticalSpace(),
                         Text(
@@ -65,7 +65,8 @@ class HomeUI extends StatelessWidget {
                                 ': ' +
                                 controller.firestoreUser.value!.sex.tr,
                             style: TextStyle(fontSize: 16)),
-                            FormVerticalSpace(),
+                            FormVerticalSpace(),     
+
                          Text(
                             'home.ageLabel'.tr +
                                 ': ' +

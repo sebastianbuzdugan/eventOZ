@@ -1,10 +1,7 @@
-
-
 // import 'package:flutter/material.dart';
 // import 'package:flutter_gmaps/directions_model.dart';
 // import 'package:flutter_gmaps/directions_repository.dart';
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 
 // class MapScreen extends StatefulWidget {
 //   @override
@@ -177,60 +174,69 @@
 //   }
 // }
 
-
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:loginv1/constants/theme.dart';
 
-class HomeMap extends StatefulWidget{
+class HomeMap extends StatefulWidget {
   @override
   _HomeMapState createState() => _HomeMapState();
 }
 
 class _HomeMapState extends State<HomeMap> {
-
   GoogleMapController? mapController; //contrller for Google map
   Set<Marker> markers = Set(); //markers for google map
-  LatLng showLocation = LatLng(27.7089427, 85.3086209);  
-                            //location to show in map
+  LatLng showLocation = LatLng(46.7723135, 23.58261);
+  //location to show in map
 
   @override
   void initState() {
-      markers.add(Marker( //add marker on google map
-          markerId: MarkerId(showLocation.toString()),
-          position: showLocation, //position of marker
-          infoWindow: InfoWindow( //popup info 
-            title: 'My Custom Title ',
-            snippet: 'My Custom Subtitle',
-          ),
-          icon: BitmapDescriptor.defaultMarker, //Icon for Marker
-      ));
+    markers.add(Marker(
+      //add marker on google map
+      markerId: MarkerId(showLocation.toString()),
+      position: showLocation, //position of marker
+      infoWindow: InfoWindow(
+        //popup info
+        title: 'My Custom Title ',
+        snippet: 'My Custom Subtitle',
+      ),
+      icon: BitmapDescriptor.defaultMarker, //Icon for Marker
+    ));
 
-      //you can add more markers here
+    //you can add more markers here
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-          appBar: AppBar( 
-             title: Text("Google Map in Flutter"),
-             backgroundColor: Colors.deepPurpleAccent,
-          ),
-          body: GoogleMap( //Map widget from google_maps_flutter package
-                    zoomGesturesEnabled: true, //enable Zoom in, out on map
-                    initialCameraPosition: CameraPosition( //innital position in map
-                      target: showLocation, //initial position
-                      zoom: 10.0, //initial zoom level
-                    ),
-                    markers: markers, //markers to show on map
-                    mapType: MapType.normal, //map type
-                    onMapCreated: (controller) { //method called when map is created
-                      setState(() {
-                        mapController = controller; 
-                      });
-                    },
-              ),
-       );
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("currentLoc".tr),
+        backgroundColor: primaryClr,
+      ),
+      body: GoogleMap(
+        //Map widget from google_maps_flutter package
+        zoomGesturesEnabled: true, //enable Zoom in, out on map
+        initialCameraPosition: CameraPosition(
+          //innital position in map
+          target: showLocation, //initial position
+          zoom: 15.0, //initial zoom level
+        ),
+        markers: markers, //markers to show on map
+        mapType: MapType.normal, //map type
+        onMapCreated: (controller) {
+          //method called when map is created
+          setState(() {
+            mapController = controller;
+          });
+
+          mapController!.animateCamera(
+            CameraUpdate.newLatLngZoom(showLocation, 15),
+          );
+          print('works');
+        },
+      ),
+    );
   }
 }

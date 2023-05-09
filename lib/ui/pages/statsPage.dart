@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:loginv1/constants/theme.dart';
 import 'package:loginv1/models/modele.dart';
 import 'package:loginv1/ui/widgets/ques_ans_file.dart';
@@ -97,7 +98,7 @@ return Scaffold(
                       direction: FlipDirection.VERTICAL,
                       back: BottomCardWidget(task: widget.task),
                       front: ReusableCard(
-                          text: 'Press here for details'))),
+                          text: 'pressDetails'.tr))),
      
             ])));
       
@@ -245,16 +246,17 @@ class _BottomCardWidgetState extends State<BottomCardWidget> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.data!.isEmpty)
-              return const Center(
-                child: Text('No Users'),
+              return  Center(
+                child: Text("noDetails".tr),
               );
-            double? averageAge = snapshot.data
-                ?.map((u) => double.parse(u.age))
-                .reduce((a, b) => a + b / snapshot.data!.length);
-            List<UserModel>? noOfMales =
-                snapshot.data?.where((u) => u.sex == 'male').toList();
-            List<UserModel>? noOfFemales =
-                snapshot.data?.where((u) => u.sex == 'female').toList();
+          double? averageAge = snapshot.data != null
+    ? snapshot.data!
+        .map((u) => double.parse(u.age))
+        .reduce((a, b) => a + b) /
+        snapshot.data!.length
+    : null;
+  List<UserModel>? noOfMales = snapshot.data?.where((u) => u.sex == 'Gender.Male').toList();
+List<UserModel>? noOfFemales = snapshot.data?.where((u) => u.sex == 'Gender.Female').toList();
             return Padding(
                padding: EdgeInsets.all(20.0),
       child: Card(
@@ -273,7 +275,7 @@ class _BottomCardWidgetState extends State<BottomCardWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Average Age:    ',
+                          'averageAge'.tr,
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
@@ -299,7 +301,7 @@ class _BottomCardWidgetState extends State<BottomCardWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'No of Males:    ',
+                          'noOfMales'.tr,
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
@@ -325,7 +327,7 @@ class _BottomCardWidgetState extends State<BottomCardWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'No Of Females:    ',
+                          'noOfFemales'.tr,
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
@@ -348,7 +350,7 @@ class _BottomCardWidgetState extends State<BottomCardWidget> {
                       height: 15,
                     ),
                     Text(
-                      'List Of Users',
+                      'listOfUsers'.tr,
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 18,

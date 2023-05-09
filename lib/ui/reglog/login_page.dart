@@ -62,7 +62,7 @@ class SignInUI extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "HELLO, sign into your account",
+                  "hello".tr,
                   
                   style: TextStyle(
                       fontSize: 20,

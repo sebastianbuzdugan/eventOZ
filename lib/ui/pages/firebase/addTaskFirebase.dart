@@ -80,15 +80,22 @@ class _AddTaskFirebaseState extends State<AddTaskFirebase> {
               SizedBox(
                 height: 8,
               ),
+
               InputField(
                 title: 'title'.tr,
-                hint: 'titiled'.tr,
+                hint: 'titled'.tr,
                 controller: _titleController,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]'))
+                ],
               ),
               InputField(
                 title: 'price'.tr,
                 hint: 'priced'.tr,
                 controller: _priceController,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                ],
               ),
               InputField(
                 title: 'loc'.tr,
@@ -96,11 +103,11 @@ class _AddTaskFirebaseState extends State<AddTaskFirebase> {
                 controller: _locationController,
               ),
               InputField(
-                  title: 'description'.tr,
-                  hint: 'descriptiond'.tr,
+                  title: 'desc'.tr,
+                  hint: 'descd'.tr,
                   controller: _noteController),
               InputField(
-                title: "Date",
+                title: "date".tr,
                 hint: DateFormat.yMd().format(_selectedDate),
                 widget: IconButton(
                   icon: (Icon(
@@ -117,7 +124,7 @@ class _AddTaskFirebaseState extends State<AddTaskFirebase> {
                 children: [
                   Expanded(
                     child: InputField(
-                      title: "Start Time",
+                      title: "startTime".tr,
                       hint: _startTime,
                       widget: IconButton(
                         icon: (Icon(
@@ -136,7 +143,7 @@ class _AddTaskFirebaseState extends State<AddTaskFirebase> {
                   ),
                   Expanded(
                     child: InputField(
-                      title: "End Time",
+                      title: "endTime".tr,
                       hint: _endTime,
                       widget: IconButton(
                         icon: (Icon(
@@ -151,76 +158,76 @@ class _AddTaskFirebaseState extends State<AddTaskFirebase> {
                   )
                 ],
               ),
-              InputField(
-                title: "Remind",
-                hint: "$_selectedRemind minutes early",
-                widget: Row(
-                  children: [
-                    DropdownButton<String>(
-                        //value: _selectedRemind.toString(),
-                        icon: Icon(
-                          Icons.keyboard_arrow_down,
-                          color: Colors.grey,
-                        ),
-                        iconSize: 32,
-                        elevation: 4,
-                        style: subTitleTextStle,
-                        underline: Container(height: 0),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            _selectedRemind = int.parse(newValue!);
-                          });
-                        },
-                        items: remindList
-                            .map<DropdownMenuItem<String>>((int value) {
-                          return DropdownMenuItem<String>(
-                            value: value.toString(),
-                            child: Text(value.toString()),
-                          );
-                        }).toList()),
-                    SizedBox(width: 6),
-                  ],
-                ),
-              ),
-              InputField(
-                title: "Repeat",
-                hint: _selectedRepeat,
-                widget: Row(
-                  children: [
-                    Container(
-                      child: DropdownButton<String>(
-                          dropdownColor: Colors.blueGrey,
-                          //value: _selectedRemind.toString(),
-                          icon: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: Colors.grey,
-                          ),
-                          iconSize: 32,
-                          elevation: 4,
-                          style: subTitleTextStle,
-                          underline: Container(
-                            height: 6,
-                          ),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              _selectedRepeat = newValue;
-                            });
-                          },
-                          items: repeatList
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            );
-                          }).toList()),
-                    ),
-                    SizedBox(width: 6),
-                  ],
-                ),
-              ),
+              // InputField(
+              //   title: "Remind",
+              //   hint: "$_selectedRemind minutes early",
+              //   widget: Row(
+              //     children: [
+              //       DropdownButton<String>(
+              //           //value: _selectedRemind.toString(),
+              //           icon: Icon(
+              //             Icons.keyboard_arrow_down,
+              //             color: Colors.grey,
+              //           ),
+              //           iconSize: 32,
+              //           elevation: 4,
+              //           style: subTitleTextStle,
+              //           underline: Container(height: 0),
+              //           onChanged: (String? newValue) {
+              //             setState(() {
+              //               _selectedRemind = int.parse(newValue!);
+              //             });
+              //           },
+              //           items: remindList
+              //               .map<DropdownMenuItem<String>>((int value) {
+              //             return DropdownMenuItem<String>(
+              //               value: value.toString(),
+              //               child: Text(value.toString()),
+              //             );
+              //           }).toList()),
+              //       SizedBox(width: 6),
+              //     ],
+              //   ),
+              // ),
+              // InputField(
+              //   title: "Repeat",
+              //   hint: _selectedRepeat,
+              //   widget: Row(
+              //     children: [
+              //       Container(
+              //         child: DropdownButton<String>(
+              //             dropdownColor: Colors.blueGrey,
+              //             //value: _selectedRemind.toString(),
+              //             icon: Icon(
+              //               Icons.keyboard_arrow_down,
+              //               color: Colors.grey,
+              //             ),
+              //             iconSize: 32,
+              //             elevation: 4,
+              //             style: subTitleTextStle,
+              //             underline: Container(
+              //               height: 6,
+              //             ),
+              //             onChanged: (String? newValue) {
+              //               setState(() {
+              //                 _selectedRepeat = newValue;
+              //               });
+              //             },
+              //             items: repeatList
+              //                 .map<DropdownMenuItem<String>>((String value) {
+              //               return DropdownMenuItem<String>(
+              //                 value: value,
+              //                 child: Text(
+              //                   value,
+              //                   style: TextStyle(color: Colors.white),
+              //                 ),
+              //               );
+              //             }).toList()),
+              //       ),
+              //       SizedBox(width: 6),
+              //     ],
+              //   ),
+              // ),
               SizedBox(
                 height: 18.0,
               ),
@@ -231,7 +238,7 @@ class _AddTaskFirebaseState extends State<AddTaskFirebase> {
                   _colorChips(),
                   isLoading != true
                       ? MyButton(
-                          label: "Create Task",
+                          label: "createTask".tr,
                           onTap: () async {
                             setState(() {
                               isLoading = true;
@@ -325,7 +332,7 @@ class _AddTaskFirebaseState extends State<AddTaskFirebase> {
   _colorChips() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(
-        "Color",
+        "color".tr,
         style: titleTextStle,
       ),
       SizedBox(
@@ -346,7 +353,7 @@ class _AddTaskFirebaseState extends State<AddTaskFirebase> {
                 child: CircleAvatar(
                   radius: 14,
                   backgroundColor: index == 0
-                      ? primaryClr
+                      ? bluishClr
                       : index == 1
                           ? pinkClr
                           : yellowClr,

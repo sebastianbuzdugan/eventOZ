@@ -98,37 +98,34 @@ class _SettingsState extends State<Settings> {
    _signOut(){
      double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
-     return GestureDetector(
-      onTap: () {
-              AuthController.to.logout();
-      },
-      child: Container(
-        margin: EdgeInsets.fromLTRB(0, h*1/9, 0, h*1/27),
-    width: w*0.30,
-    height: h*0.07,
+     return 
+   GestureDetector(
+  onTap: () {
+    AuthController.to.logout();
+  },
+  child: Container(
+    margin: EdgeInsets.fromLTRB(0, h * 1 / 9, 0, h * 1 / 27),
+    width: w * 0.40, // increase the width to create more space around the text
+    height: h * 0.07,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(30),
       image: DecorationImage(
-      image: AssetImage(
-        "lib/img/loginbtn.png"
+        image: AssetImage("lib/img/loginbtn.png"),
+        fit: BoxFit.cover,
       ),
-      fit: BoxFit.cover,
+    ),
+    child: Center(
+      child: Text(
+        "signOut".tr,
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
       ),
-    
     ),
-    child:Center(
-      child:   Text(
-                    "Sign out",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-    ),
-    
-          ),
-    );
+  ),
+);
   }
     _updateP(){
      double w = MediaQuery.of(context).size.width;
@@ -155,7 +152,7 @@ class _SettingsState extends State<Settings> {
     ),
     child:Center(
       child:   Text(
-                    "Update Profile",
+                    "updateProfile".tr,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,

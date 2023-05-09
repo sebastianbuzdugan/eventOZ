@@ -24,7 +24,7 @@ class _HomeChatState extends State<HomeChat> {
     return Scaffold(
       backgroundColor: secClr,
       appBar: AppBar(
-        title: Text('Chat Rooms'),
+        title: Text('chatRooms'.tr),
         centerTitle: true,
         backgroundColor: primaryClr,
         
@@ -36,7 +36,7 @@ class _HomeChatState extends State<HomeChat> {
           if(snapshot.hasData){
             if(snapshot.data.docs.length < 1){
               return Center(
-                child: Text("No Chats Available !"),
+                child: Text("noChats".tr),
               );
             }
             return ListView.builder(

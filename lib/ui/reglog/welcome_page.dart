@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 
 class WelcomePage extends StatelessWidget {
   String email;
@@ -93,7 +94,7 @@ SizedBox(height: 200,),
     ),
     child:Center(
       child:   Text(
-                    "Sign out",
+                    "signOut".tr,
                     style: TextStyle(
                       fontSize: 36,
                       fontWeight: FontWeight.bold,

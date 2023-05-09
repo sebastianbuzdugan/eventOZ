@@ -89,24 +89,24 @@ class _ChatScreenState extends State<ChatScreen> {
                       decoration: kMessageTextFieldDecoration,
                     ),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (messageText.isNotEmpty) {
-                        print('ASD ${loggedInUser.email}');
-                        messageTextController.clear();
-                        _firestore.collection('messages').add({
-                          'text': messageText,
-                          'sender': loggedInUser.email,
-                          'msgTime': DateTime.now(),
-                        });
-                        messageText = '';
-                      }
-                    },
-                    child: Text(
-                      'Send',
-                      style: kSendButtonTextStyle,
-                    ),
-                  ),
+       TextButton(
+  onPressed: () {
+    if (messageText.isNotEmpty) {
+      print('ASD ${loggedInUser.email}');
+      messageTextController.clear();
+      _firestore.collection('messages').add({
+        'text': messageText,
+        'sender': loggedInUser.email,
+        'msgTime': DateTime.now(),
+      });
+      messageText = '';
+    }
+  },
+  child: Text(
+    'send'.tr,
+    style: kSendButtonTextStyle,
+  ),
+),
                 ],
               ),
             ),

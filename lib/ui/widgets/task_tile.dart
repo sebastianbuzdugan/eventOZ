@@ -42,25 +42,7 @@ class TaskTile extends StatelessWidget {
                 SizedBox(
                   height: 12,
                 ),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.price_check_rounded,
-                      color: Colors.grey[200],
-                      size: 18,
-                    ),
-                    SizedBox(width: 4),
-                    Text(
-                      '${task.price.toString()} \$ ',
-                      style: GoogleFonts.lato(
-                        textStyle: TextStyle(fontSize: 16, color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 6,
-                ),
+             
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -72,6 +54,43 @@ class TaskTile extends StatelessWidget {
                     SizedBox(width: 4),
                     Text(
                       task.location!,
+                      style: GoogleFonts.lato(
+                        textStyle: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+             
+                SizedBox(height: 6),
+                Row(
+                  children: [
+                      Icon(
+                      Icons.description_outlined,
+                      color: Colors.grey[200],
+                      size: 18,
+                    ),
+                    SizedBox(width: 4),
+                    Text(
+                      task.note!,
+                      style: GoogleFonts.lato(
+                        textStyle: TextStyle(fontSize: 15, color: Colors.grey[100]),
+                      ),
+                    ),
+                  ],
+                ),
+                   SizedBox(
+                  height: 6,
+                ),
+                   Row(
+                  children: [
+                    Icon(
+                      Icons.price_check_rounded,
+                      color: Colors.grey[200],
+                      size: 18,
+                    ),
+                    SizedBox(width: 4),
+                    Text(
+                      '${task.price.toString()} \RON ',
                       style: GoogleFonts.lato(
                         textStyle: TextStyle(fontSize: 16, color: Colors.white),
                       ),
@@ -100,18 +119,19 @@ class TaskTile extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
-                SizedBox(height: 6),
+                ),  
+                     SizedBox(height: 6),
+                     
                 Row(
                   children: [
                       Icon(
-                      Icons.description_outlined,
+                      Icons.edit_calendar_rounded,
                       color: Colors.grey[200],
                       size: 18,
                     ),
                     SizedBox(width: 4),
                     Text(
-                      task.note!,
+                      task.date!,
                       style: GoogleFonts.lato(
                         textStyle: TextStyle(fontSize: 15, color: Colors.grey[100]),
                       ),

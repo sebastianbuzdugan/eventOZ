@@ -1,6 +1,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:loginv1/constants/theme.dart';
 import 'package:loginv1/ui/pages/chat1screen.dart';
 
@@ -49,7 +50,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryClr,
-        title: Text("Search a user"),
+        title: Text("searchUser".tr),
       ),
       body: Column(
         children: [
@@ -78,7 +79,7 @@ class _SearchScreenState extends State<SearchScreen> {
      borderSide: BorderSide(width: 1,)
    ),
   
-                       hintText: "type username....",
+                       hintText: 'typeUser'.tr,
                        
                      ),
                    ),

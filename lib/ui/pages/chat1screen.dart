@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:loginv1/constants/theme.dart';
 import 'package:loginv1/models/user_models.dart';
 import 'package:loginv1/ui/widgets/message_textfield.dart';
@@ -64,7 +65,7 @@ class Chat1Screen extends StatelessWidget {
                    if(snapshot.hasData){
                      if(snapshot.data.docs.length < 1){
                        return Center(
-                         child: Text("Say Hi"),
+                         child: Text("sayHi".tr),
                        );
                      }
                      return ListView.builder(

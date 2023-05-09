@@ -20,7 +20,7 @@ class _LocationScreenState extends State<LocationScreen> {
 
   String weatherIcon = 'no';
 
-  String cityName = 'Iasi';
+  String cityName = 'Cluj-Napoca';
 
   String country = 'Romania';
 
@@ -121,7 +121,7 @@ class _LocationScreenState extends State<LocationScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  ElevatedButton(
+                  TextButton(
                     onPressed: () async {
                       Get.back();
                     },
@@ -130,7 +130,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       color: primaryClr,
                     ),
                   ),
-                  ElevatedButton(
+                  TextButton(
                     onPressed: () async {
                       var weatherData = await weather.getLocationWeather();
                       updateUI(weatherData);
@@ -253,7 +253,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       Column(
                         children: [
                           Text(
-                            'Wind',
+                            'wind'.tr,
                             style: GoogleFonts.lato(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
@@ -295,7 +295,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       Column(
                         children: [
                           Text(
-                            'Rain',
+                            'rain'.tr,
                             style: GoogleFonts.lato(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
@@ -337,7 +337,7 @@ class _LocationScreenState extends State<LocationScreen> {
                       Column(
                         children: [
                           Text(
-                            'Humidy',
+                            'humidy'.tr,
                             style: GoogleFonts.lato(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
@@ -345,7 +345,7 @@ class _LocationScreenState extends State<LocationScreen> {
                             ),
                           ),
                           Text(
-                           '0',
+                           '95',
                             style: GoogleFonts.lato(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
@@ -369,7 +369,7 @@ class _LocationScreenState extends State<LocationScreen> {
                               ),
                               Container(
                                 height: 5,
-                                width: wind/2,
+                                width: 45,
                                 color: primaryClr,
                               ),
                             ],

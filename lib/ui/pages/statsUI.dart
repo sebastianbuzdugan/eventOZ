@@ -1,6 +1,7 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:loginv1/constants/theme.dart';
 import 'package:loginv1/ui/widgets/ques_ans_file.dart';
 import 'package:loginv1/ui/widgets/reusable_card.dart';
@@ -24,7 +25,7 @@ class _StatsUIState extends State<StatsUI> {
         backgroundColor: Colors.grey.shade100,
         appBar: AppBar(
             centerTitle: true,
-            title: Text("Statistics", style: TextStyle(fontSize: 30)),
+            title: Text("stats".tr, style: TextStyle(fontSize: 30)),
             backgroundColor: primaryClr,
             toolbarHeight: 80,
             elevation: 5,
@@ -35,7 +36,7 @@ class _StatsUIState extends State<StatsUI> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-              Text("Statistics for this event:", style: otherTextStyle),
+              Text("statsEvent".tr, style: otherTextStyle),
               SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -56,7 +57,7 @@ class _StatsUIState extends State<StatsUI> {
                           text: quesAnsList[_currentIndexNumber].question),
                       back: ReusableCard(
                           text: quesAnsList[_currentIndexNumber].answer))),
-              Text("Press on card for results", style: otherTextStyle),
+              Text("pressStats".tr, style: otherTextStyle),
               SizedBox(height: 20),
               Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,

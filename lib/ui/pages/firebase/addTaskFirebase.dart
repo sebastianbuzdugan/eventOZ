@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:loginv1/controllers/controllers.dart';
 import 'package:loginv1/services/Database.dart';
-import 'package:loginv1/ui/widgets/avatar.dart';
 import '../../../constants/theme.dart';
 import '/controllers/task_controller.dart';
 import '/models/task.dart';

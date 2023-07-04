@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../constants/size_config.dart';
-import '../../constants/theme.dart';
 
 class MyButton extends StatelessWidget {
   final Function? onTap;
@@ -19,7 +17,7 @@ class MyButton extends StatelessWidget {
       onTap: onTap as void Function()?,
       child: Container(
         height: 50,
-        width: 200, // increase the width to accommodate longer text
+        width: 200, // mareste width
         padding: padding,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),

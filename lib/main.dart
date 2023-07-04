@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       builder: (languageController) => Loading(
         child: GetMaterialApp(
           translations: Localization(),
-          locale: languageController.getLocale, // <- Current locale
+          locale: languageController.getLocale, // <- local curent
           navigatorObservers: [
             // FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
           ],

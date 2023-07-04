@@ -62,7 +62,6 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 12,
             ),
-            //_showTasks(),
             _showFBTasks()
           ],
         ),
@@ -142,14 +141,14 @@ class _HomeState extends State<Home> {
           ),
           widget.isAdmin
               ? MyButton(
-  label: '+addtask'.tr,
-  onTap: () async {
-    //await Get.to(AddTaskPage());
-    await Get.to(AddTaskFirebase());
-    _taskController.getTasks();
-  },
-  padding: EdgeInsets.all(16),
-)
+                  label: '+addtask'.tr,
+                  onTap: () async {
+                    //await Get.to(AddTaskPage());
+                    await Get.to(AddTaskFirebase());
+                    _taskController.getTasks();
+                  },
+                  padding: EdgeInsets.all(16),
+                )
               : const SizedBox.shrink(),
         ],
       ),
@@ -219,7 +218,7 @@ class _HomeState extends State<Home> {
                           children: [
                             GestureDetector(
                                 onTap: () {
-                                //  showBottomSheet(context, task);
+                                  //  showBottomSheet(context, task);
                                 },
                                 child: TaskTile(task)),
                           ],
@@ -256,84 +255,6 @@ class _HomeState extends State<Home> {
         });
   }
 
-  // _showTasks() {
-  //   return Expanded(
-  //     child: Obx(() {
-  //       if (_taskController.taskList.isEmpty) {
-  //         return _noTaskMsg();
-  //       } else
-  //         return ListView.builder(
-  //             scrollDirection: Axis.vertical,
-  //             itemCount: _taskController.taskList.length,
-  //             itemBuilder: (context, index) {
-  //               Task task = _taskController.taskList[index];
-  //               if (task.repeat == 'Daily') {
-
-  //                 var hour= task.startTime.toString().split(":")[0];
-  //                 var minutes = task.startTime.toString().split(":")[1];
-  //                 debugPrint("My time is "+hour);
-  //                 debugPrint("My minute is "+minutes);
-  //                 DateTime date= DateFormat.jm().parse(task.startTime!);
-  //                 var myTime = DateFormat("HH:mm").format(date);
-  // /*
-  //                 print("my date "+date.toString());
-  //                 print("my time " +myTime);
-  //                 var t=DateFormat("M/d/yyyy hh:mm a").parse(task.date+" "+task.startTime);
-  //                 print(t);
-  //                 print(int.parse(myTime.toString().split(":")[0]));*/
-  //                 notifyHelper.scheduledNotification(int.parse(myTime.toString().split(":")[0]),
-  //                     int.parse(myTime.toString().split(":")[1]), task);
-
-  //                 return AnimationConfiguration.staggeredList(
-  //                   position: index,
-  //                   duration: const Duration(milliseconds: 1375),
-  //                   child: SlideAnimation(
-  //                     horizontalOffset: 300.0,
-  //                     child: FadeInAnimation(
-  //                       child: Row(
-  //                         crossAxisAlignment: CrossAxisAlignment.start,
-  //                         children: [
-  //                           GestureDetector(
-  //                               onTap: () {
-  //                                 showBottomSheet(context, task);
-  //                               },
-  //                               child: TaskTile(task)),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 );
-  //               }
-  //               if (task.date == DateFormat.yMd().format(_selectedDate)) {
-  //                 //notifyHelper.scheduledNotification();
-  //                 return AnimationConfiguration.staggeredList(
-  //                   position: index,
-  //                   duration: const Duration(milliseconds: 1375),
-  //                   child: SlideAnimation(
-  //                     horizontalOffset: 300.0,
-  //                     child: FadeInAnimation(
-  //                       child: Row(
-  //                         crossAxisAlignment: CrossAxisAlignment.start,
-  //                         children: [
-  //                           GestureDetector(
-  //                               onTap: () {
-
-  //                                 showBottomSheet(context, task);
-  //                               },
-  //                               child: TaskTile(task)),
-  //                         ],
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 );
-  //               } else {
-  //                 return Container();
-  //               }
-  //             });
-  //     }),
-  //   );
-  // }
-
   showBottomSheet(BuildContext context, Task task) {
     Get.bottomSheet(
       Container(
@@ -344,43 +265,42 @@ class _HomeState extends State<Home> {
             : SizeConfig.screenHeight * 0.36 * 1 / 2,
         width: SizeConfig.screenWidth,
         // color: Get.isDarkMode ? darkHeaderClr : Colors.white,
-        child: Column(children: [
-          Container(
-            height: 6,
-            width: 120,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Get.isDarkMode ? Colors.grey[600] : Colors.grey[300]),
-          ),
-          Spacer(),
-          task.isCompleted == 1
-              ? Container()
-              : _buildBottomSheetButton(
-                  label: "GOING",
-                  onTap: () {
-                    _taskController.markTaskCompleted(task.id);
-                    Get.back();
-                  },
-                  clr: Colors.green),
-          _buildBottomSheetButton(
-              label: "NOT GOING",
-              onTap: () {
+        child: Column(
+          children: [
+            Container(
+              height: 6,
+              width: 120,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Get.isDarkMode ? Colors.grey[600] : Colors.grey[300]),
+            ),
+            Spacer(),
+            task.isCompleted == 1
+                ? Container()
+                : _buildBottomSheetButton(
+                    label: "GOING",
+                    onTap: () {
+                      _taskController.markTaskCompleted(task.id);
+                      Get.back();
+                    },
+                    clr: Colors.green),
+            _buildBottomSheetButton(
+                label: "NOT GOING",
+                onTap: () {
+                  //TO FIX THIS:
+                  // _taskController.deleteTask(task);
+                  //             FirebaseFirestore.instance
+                  // .collection('tasks')
+                  // .doc(task.id)
+                  // .delete();
 
-                //TO FIX THIS:
-                // _taskController.deleteTask(task);
-    //             FirebaseFirestore.instance
-    // .collection('tasks')
-    // .doc(task.id)
-    // .delete();
-
-    
-                Get.back();
-              },
-              clr: Colors.red[300]),
-          SizedBox(
-            height: 20,
-          ),
-        ],
+                  Get.back();
+                },
+                clr: Colors.red[300]),
+            SizedBox(
+              height: 20,
+            ),
+          ],
         ),
       ),
     );

@@ -85,9 +85,6 @@ class _AddTaskFirebaseState extends State<AddTaskFirebase> {
                 title: 'title'.tr,
                 hint: 'titled'.tr,
                 controller: _titleController,
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]'))
-                ],
               ),
               InputField(
                 title: 'price'.tr,

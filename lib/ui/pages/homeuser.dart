@@ -13,19 +13,19 @@ import 'package:intl/intl.dart';
 import '/ui/widgets/task_tile.dart';
 
 class HomeUser extends StatefulWidget {
-  const HomeUser({ Key? key }) : super(key: key);
+  const HomeUser({Key? key}) : super(key: key);
 
   @override
   _HomeUserState createState() => _HomeUserState();
 }
 
 class _HomeUserState extends State<HomeUser> {
-    DateTime _selectedDate = DateTime.parse(DateTime.now().toString());
-   final _taskController = Get.put(TaskController());
+  DateTime _selectedDate = DateTime.parse(DateTime.now().toString());
+  final _taskController = Get.put(TaskController());
   late var notifyHelper;
-  bool animate=false;
-  double left=630;
-  double top=900;
+  bool animate = false;
+  double left = 630;
+  double top = 900;
   Timer? _timer;
   @override
   void initState() {
@@ -35,15 +35,16 @@ class _HomeUserState extends State<HomeUser> {
     // notifyHelper.requestIOSPermissions();
     _timer = Timer(Duration(milliseconds: 500), () {
       setState(() {
-        animate=true;
-        left=30;
-        top=top/3;
+        animate = true;
+        left = 30;
+        top = top / 3;
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
-       double w = MediaQuery.of(context).size.width;
+    double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     SizeConfig().init(context);
     return Container(
@@ -55,20 +56,16 @@ class _HomeUserState extends State<HomeUser> {
             height: 12,
           ),
           _showTasks(),
-         
         ],
-      ),);
-    
+      ),
+    );
   }
-
 
   _dateBar() {
     return Container(
       margin: EdgeInsets.only(bottom: 10, left: 20),
       child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20)
-        ),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
         child: DatePicker(
           DateTime.now(),
           height: 100.0,
@@ -125,14 +122,15 @@ class _HomeUserState extends State<HomeUser> {
                 DateFormat.yMMMMd().format(DateTime.now()),
                 style: subHeadingTextStyle,
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               Text(
                 'today'.tr,
                 style: headingTextStyle,
               ),
             ],
           ),
-          
         ],
       ),
     );
@@ -143,24 +141,21 @@ class _HomeUserState extends State<HomeUser> {
         backgroundColor: secClr,
         elevation: 0,
         leading: GestureDetector(
-         
           child: Icon(
             Icons.sunny,
             color: darkGreyClr,
-              ),
+          ),
         ),
         actions: [
           Icon(
             Icons.navigation_rounded,
             color: darkGreyClr,
           ),
-         
           SizedBox(
             width: 20,
           ),
         ]);
   }
-  
 
   _showTasks() {
     return Expanded(
@@ -174,21 +169,22 @@ class _HomeUserState extends State<HomeUser> {
               itemBuilder: (context, index) {
                 Task task = _taskController.taskList[index];
                 if (task.repeat == 'Daily') {
-
-                  var hour= task.startTime.toString().split(":")[0];
+                  var hour = task.startTime.toString().split(":")[0];
                   var minutes = task.startTime.toString().split(":")[1];
-                  debugPrint("My time is "+hour);
-                  debugPrint("My minute is "+minutes);
-                  DateTime date= DateFormat.jm().parse(task.startTime!);
+                  debugPrint("My time is " + hour);
+                  debugPrint("My minute is " + minutes);
+                  DateTime date = DateFormat.jm().parse(task.startTime!);
                   var myTime = DateFormat("HH:mm").format(date);
-  /*
+                  /*
                   print("my date "+date.toString());
                   print("my time " +myTime);
                   var t=DateFormat("M/d/yyyy hh:mm a").parse(task.date+" "+task.startTime);
                   print(t);
                   print(int.parse(myTime.toString().split(":")[0]));*/
-                  notifyHelper.scheduledNotification(int.parse(myTime.toString().split(":")[0]),
-                      int.parse(myTime.toString().split(":")[1]), task);
+                  notifyHelper.scheduledNotification(
+                      int.parse(myTime.toString().split(":")[0]),
+                      int.parse(myTime.toString().split(":")[1]),
+                      task);
 
                   return AnimationConfiguration.staggeredList(
                     position: index,
@@ -223,7 +219,6 @@ class _HomeUserState extends State<HomeUser> {
                           children: [
                             GestureDetector(
                                 onTap: () {
-
                                   showBottomSheet(context, task);
                                 },
                                 child: TaskTile(task)),
@@ -243,11 +238,11 @@ class _HomeUserState extends State<HomeUser> {
   showBottomSheet(BuildContext context, Task task) {
     Get.bottomSheet(
       Container(
-      color: Colors.orange[50],
+        color: Colors.orange[50],
         padding: EdgeInsets.only(top: 4),
         height: task.isCompleted == 1
-            ? SizeConfig.screenHeight * 0.24 * 1/2
-            : SizeConfig.screenHeight * 0.36 * 1/2,
+            ? SizeConfig.screenHeight * 0.24 * 1 / 2
+            : SizeConfig.screenHeight * 0.36 * 1 / 2,
         width: SizeConfig.screenWidth,
         // color: Get.isDarkMode ? darkHeaderClr : Colors.white,
         child: Column(children: [
@@ -260,10 +255,8 @@ class _HomeUserState extends State<HomeUser> {
           ),
           Spacer(),
           task.isCompleted == 1
-         ? Container()
-         : 
- 
-         _buildBottomSheetButton(
+              ? Container()
+              : _buildBottomSheetButton(
                   label: "GOING",
                   onTap: () {
                     _taskController.markTaskCompleted(task.id);
@@ -277,7 +270,6 @@ class _HomeUserState extends State<HomeUser> {
                 Get.back();
               },
               clr: Colors.red[300]),
-       
           SizedBox(
             height: 20,
           ),
@@ -287,7 +279,10 @@ class _HomeUserState extends State<HomeUser> {
   }
 
   _buildBottomSheetButton(
-      {required String label, Function? onTap, Color? clr, bool isClose = false}) {
+      {required String label,
+      Function? onTap,
+      Color? clr,
+      bool isClose = false}) {
     return GestureDetector(
       onTap: onTap as void Function()?,
       child: Container(
@@ -319,13 +314,13 @@ class _HomeUserState extends State<HomeUser> {
 
   _noTaskMsg() {
     return Stack(
-      children:[ AnimatedPositioned(
-        duration: Duration(milliseconds: 2000),
-        left: left,
-        top:top,
-        child: Container(
-
-          child: Column(
+      children: [
+        AnimatedPositioned(
+          duration: Duration(milliseconds: 2000),
+          left: left,
+          top: top,
+          child: Container(
+              child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -336,7 +331,8 @@ class _HomeUserState extends State<HomeUser> {
                 semanticsLabel: 'Task',
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                 child: Text(
                   "You do not have any tasks yet!\nAdd new tasks to make your days productive.",
                   textAlign: TextAlign.center,
@@ -347,10 +343,9 @@ class _HomeUserState extends State<HomeUser> {
                 height: 80,
               ),
             ],
-          )
-        ),
-      )],
+          )),
+        )
+      ],
     );
   }
- 
 }

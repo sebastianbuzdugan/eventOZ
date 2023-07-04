@@ -3,12 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:loginv1/controllers/controllers.dart';
-import 'package:loginv1/controllers/language_controller.dart';
 import 'package:loginv1/helpers/helpers.dart';
-import 'package:loginv1/ui/pages/home_page.dart';
 import 'package:loginv1/ui/reglog/splash_screen.dart';
 import 'package:loginv1/ui/widgets/loading.dart';
-import 'controllers/auth_controller.dart';
 import 'db/db_helper.dart';
 
 void main() async {

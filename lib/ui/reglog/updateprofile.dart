@@ -6,12 +6,10 @@ import 'package:loginv1/ui/widgets/button.dart';
 import 'package:loginv1/ui/widgets/form_icon.dart';
 import 'package:loginv1/ui/widgets/form_vertical_spacing.dart';
 import 'package:loginv1/ui/widgets/label_button.dart';
-import 'package:loginv1/ui/widgets/logo_graphic_header.dart';
-import 'package:loginv1/ui/widgets/primary_button.dart';
 import '/models/modele.dart';
 import '/helpers/helpers.dart';
 import '/controllers/controllers.dart';
-import 'auth.dart';
+import 'auth/auth.dart';
 
 
 

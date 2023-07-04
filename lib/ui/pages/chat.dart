@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:loginv1/constants/theme.dart';
 import 'package:loginv1/ui/pages/homechat.dart';
-import 'package:loginv1/ui/reglog/auth.dart';
+import 'package:loginv1/ui/reglog/auth/auth.dart';
 
 import '../../controllers/controllers.dart';
 import '../../models/modele.dart';

@@ -18,38 +18,36 @@ class LanguageController extends GetxController {
     //setInitialLocalLanguage();
     super.onInit();
   }
+//setari dispozitiv extragere si setare limba
 
-  // Retrieves and Sets language based on device settings
   setInitialLocalLanguage() {
     if (currentLanguageStore.value == '') {
       String _deviceLanguage = ui.window.locale.toString();
       _deviceLanguage =
-          _deviceLanguage.substring(0, 2); //only get 1st 2 characters
+          _deviceLanguage.substring(0, 2); //extrage primele 2 caractere
       print(ui.window.locale.toString());
       updateLanguage(_deviceLanguage);
     }
   }
 
-// Gets current language stored
+// limba curenta retinuta
   RxString get currentLanguageStore {
     language.value = store.read('language') ?? '';
     return language;
   }
 
-  // gets the language locale app is set to
+  // locale app, setari
   Locale? get getLocale {
     if (currentLanguageStore.value == '') {
       language.value = Globals.defaultLanguage;
       updateLanguage(Globals.defaultLanguage);
     } else if (currentLanguageStore.value != '') {
-      //set the stored string country code to the locale
       return Locale(currentLanguageStore.value);
     }
-    // gets the default language key for the system.
     return Get.deviceLocale;
   }
 
-// updates the language stored
+//actualizare limba stocata 
   Future<void> updateLanguage(String value) async {
     language.value = value;
     await store.write('language', value);

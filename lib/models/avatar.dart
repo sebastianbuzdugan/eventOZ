@@ -1,5 +1,3 @@
-//code from uses wrong version of crypto
-//to use default package https://github.com/subosito/simple_gravatar/blob/master/lib/simple_gravatar.dart
 
 import 'dart:convert';
 import 'package:crypto/crypto.dart';

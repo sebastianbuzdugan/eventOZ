@@ -5,7 +5,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:loginv1/constants/theme.dart';
 import 'package:loginv1/models/modele.dart';
-import 'package:loginv1/ui/widgets/ques_ans_file.dart';
 import 'package:slimy_card/slimy_card.dart';
 
 import '../widgets/reusable_card.dart';

@@ -8,7 +8,7 @@ import 'package:loginv1/ui/pages/home_page.dart';
 
 import '../helpers/gravatar.dart';
 import '../models/user_models.dart';
-import '../ui/reglog/login_page.dart';
+import '../ui/reglog/auth/login_page.dart';
 
 class AuthController extends GetxController {
   static AuthController to = Get.find();
@@ -47,7 +47,7 @@ class AuthController extends GetxController {
   }
 
   handleAuthChanged(_firebaseUser) async {
-    //get user data from firestore
+    //extrage user data din firestore
     if (_firebaseUser?.uid != null) {
       firestoreUser.bindStream(streamFirestoreUser());
       print(isAdmin);
@@ -62,13 +62,13 @@ class AuthController extends GetxController {
     }
   }
 
-  // Firebase user one-time fetch
+  // one-time fetch
   Future<User> get getUser async => _auth.currentUser!;
 
-  // Firebase user a realtime stream
+  //  realtime stream
   Stream<User?> get user => _auth.authStateChanges();
 
-  //Streams the firestore user from the firestore collection
+  //Streams  firestore din colectia firebase
   Stream<UserModel> streamFirestoreUser() {
     print('streamFirestoreUser()');
 
@@ -78,13 +78,13 @@ class AuthController extends GetxController {
         .map((snapshot) => UserModel.fromMap(snapshot.data()!));
   }
 
-  //get the firestore user from the firestore collection
+  //extrage utilizatorul firestore  din colectia firebase
   Future<UserModel> getFirestoreUser() {
     return _db.doc('/users/${firebaseUser.value!.uid}').get().then(
         (documentSnapshot) => UserModel.fromMap(documentSnapshot.data()!));
   }
 
-  //Method to handle user sign in using email and password
+  //metoda de a gestiona mailul si parola
   signInWithEmailAndPassword(BuildContext context) async {
     try {
       await _auth.signInWithEmailAndPassword(
@@ -101,7 +101,7 @@ class AuthController extends GetxController {
     }
   }
 
-  // User registration using email and password
+  // inregistrare cu email si password
   registerWithEmailAndPassword(BuildContext context) async {
     try {
       await _auth
@@ -110,7 +110,7 @@ class AuthController extends GetxController {
           .then((result) async {
         print('uID: ' + result.user!.uid.toString());
         print('email: ' + result.user!.email.toString());
-        //get photo url from gravatar if user has one
+        //extrage photo url
         Gravatar gravatar = Gravatar(emailController.text);
         String gravatarUrl = gravatar.imageUrl(
           size: 200,
@@ -119,7 +119,7 @@ class AuthController extends GetxController {
           fileExtension: true,
         );
      
-        //create the new user object
+        //creaza obiect nou
         UserModel _newUser = UserModel(
             uid: result.user!.uid,
             email: result.user!.email!,
@@ -128,7 +128,7 @@ class AuthController extends GetxController {
             age: ageController.text,
             photoUrl: gravatarUrl,
             );
-        //create the user in firestore
+        //creaza utilizator in firebase
         _createUserFirestore(_newUser, result.user!);
         emailController.clear();
         passwordController.clear();
@@ -142,7 +142,6 @@ class AuthController extends GetxController {
     }
   }
 
-  //handles updating the user when updating profile
   Future<void> updateUser(BuildContext context, UserModel user, String oldEmail,
       String password) async {
     String _authUpdateUserNoticeTitle = 'auth.updateUserSuccessNoticeTitle'.tr;
@@ -158,7 +157,6 @@ class AuthController extends GetxController {
         });
       } catch (err) {
         print('Caught error: $err');
-        //not yet working, see this issue https://github.com/delay/flutter_starter/issues/21
         if (err.toString() ==
             "[firebase_auth/email-already-in-use] The email address is already in use by another account.") {
           _authUpdateUserNoticeTitle = 'auth.updateUserEmailInUse'.tr;
@@ -194,13 +192,11 @@ class AuthController extends GetxController {
     }
   }
 
-  //updates the firestore user in users collection
   void _updateUserFirestore(UserModel user, User _firebaseUser) {
     _db.doc('/users/${_firebaseUser.uid}').update(user.toJson());
     update();
   }
 
-  //create the firestore user in users collection
   void _createUserFirestore(UserModel user, User _firebaseUser) {
     _db.doc('/users/${_firebaseUser.uid}').set(user.toJson());
     update();
@@ -225,7 +221,7 @@ class AuthController extends GetxController {
     }
   }
 
-  //check if user is an admin user
+  //verifica daca utilizatorul e admin
  
       
  Future<bool> isAdmin() async {

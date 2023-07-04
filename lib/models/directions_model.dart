@@ -16,13 +16,12 @@ class Directions {
   });
 
   factory Directions.fromMap(Map<String, dynamic> map) {
-    // Check if route is not available
+    // verifica ruta
     if ((map['routes'] as List).isEmpty);
 
-    // Get route information
+    // informatii ruta
     final data = Map<String, dynamic>.from(map['routes'][0]);
 
-    // Bounds
     final northeast = data['bounds']['northeast'];
     final southwest = data['bounds']['southwest'];
     final bounds = LatLngBounds(
@@ -30,7 +29,7 @@ class Directions {
       southwest: LatLng(southwest['lat'], southwest['lng']),
     );
 
-    // Distance & Duration
+    // distanta si durata
     String distance = '';
     String duration = '';
     if ((data['legs'] as List).isNotEmpty) {

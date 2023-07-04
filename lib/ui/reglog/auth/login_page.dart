@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'dart:core';
 import 'package:get/get.dart';
 import 'package:loginv1/ui/reglog/reset_password.dart';
-import 'package:loginv1/ui/reglog/signup_page.dart';
+import 'package:loginv1/ui/reglog/auth/signup_page.dart';
 import 'package:loginv1/ui/widgets/button.dart';
 import 'package:loginv1/ui/widgets/form_icon.dart';
 import 'package:loginv1/ui/widgets/form_vertical_spacing.dart';
-import 'package:loginv1/ui/widgets/logo_graphic_header.dart';
-import '../../constants/theme.dart';
-import '../../controllers/auth_controller.dart';
-import '../../helpers/validator.dart';
-import '../widgets/label_button.dart';
+import '../../../constants/theme.dart';
+import '../../../controllers/auth_controller.dart';
+import '../../../helpers/validator.dart';
+import '../../widgets/label_button.dart';
 
 
 class SignInUI extends StatelessWidget {

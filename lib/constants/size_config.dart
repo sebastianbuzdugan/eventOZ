@@ -29,4 +29,4 @@ double getProportionateScreenWidth(double inputWidth) {
   return (inputWidth / 375.0) * screenWidth;
 }
 
-// DIMMENSIONS FLUTTER (RESPONSIVE)
+// DIMMENSIUNI DEVICE FLUTTER (RESPONSIVE)

@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-//loading indicator code is a modified and simplified version of this code
-//https://github.com/fayaz07/ots
+
 
 final _tKey = GlobalKey(debugLabel: 'overlay_parent');
 
-/// Updates with the latest [OverlayEntry] child
 late OverlayEntry _loaderEntry;
 
-/// is dark theme
 bool isDarkTheme = false;
 
-/// To keep track if the [Overlay] is shown
 bool _loaderShown = false;
 
 class Loading extends StatelessWidget {
@@ -55,7 +51,6 @@ OverlayState? get _overlayState {
   return navigator!.overlay;
 }
 
-/// To handle a loader for the application
 Future<void> showLoadingIndicator(
     {bool isModal = true, Color? modalColor}) async {
   try {
@@ -99,7 +94,7 @@ Future<void> hideLoadingIndicator() async {
 }
 
 ///----------------------------------------------------------------------------
-/// These methods deal with showing and hiding the overlay
+/// Metode pt a arata overlay-ul
 Future<void> _showOverlay({required Widget child}) async {
   try {
     final overlay = _overlayState;

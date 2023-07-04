@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import 'package:loginv1/ui/reglog/login_page.dart';
-import 'package:loginv1/ui/reglog/welcome_page.dart';
+import 'package:loginv1/ui/reglog/auth/login_page.dart';
 import 'package:loginv1/ui/widgets/button.dart';
 
 import '../../controllers/auth_controller.dart';
@@ -11,8 +9,6 @@ import '../../helpers/validator.dart';
 import '../widgets/form_icon.dart';
 import '../widgets/form_vertical_spacing.dart';
 import '../widgets/label_button.dart';
-import '../widgets/logo_graphic_header.dart';
-import '../widgets/primary_button.dart';
 
 class ResetPasswordUI extends StatelessWidget {
   final AuthController authController = AuthController.to;

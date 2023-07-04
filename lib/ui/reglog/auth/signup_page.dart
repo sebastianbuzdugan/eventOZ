@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:gender_picker/source/enums.dart';
 import 'package:get/get.dart';
-import 'package:loginv1/constants/theme.dart';
 import 'package:loginv1/ui/widgets/button.dart';
 import 'package:loginv1/ui/widgets/gender.dart';
-import 'package:gender_picker/gender_picker.dart';
-import '../../controllers/auth_controller.dart';
-import '../../helpers/validator.dart';
-import '../widgets/form_icon.dart';
-import '../widgets/form_vertical_spacing.dart';
-import '../widgets/label_button.dart';
-import '../widgets/logo_graphic_header.dart';
-import '../widgets/primary_button.dart';
+import '../../../controllers/auth_controller.dart';
+import '../../../helpers/validator.dart';
+import '../../widgets/form_icon.dart';
+import '../../widgets/form_vertical_spacing.dart';
+import '../../widgets/label_button.dart';
 import 'login_page.dart';
 
 class SignUpUI extends StatelessWidget {

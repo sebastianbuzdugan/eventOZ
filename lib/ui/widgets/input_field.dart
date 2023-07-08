@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../constants/theme.dart';
+
 class InputField extends StatelessWidget {
   final String title;
   final TextEditingController? controller;
   final String? hint;
   final Widget? widget;
   final List<TextInputFormatter>? inputFormatters;
+  final int? maxLength;
+  final int? maxLines;
 
   const InputField({
     required this.title,
@@ -15,6 +18,8 @@ class InputField extends StatelessWidget {
     required this.hint,
     this.widget,
     this.inputFormatters,
+    this.maxLength,
+    this.maxLines,
   });
 
   @override
@@ -33,7 +38,6 @@ class InputField extends StatelessWidget {
           ),
           Container(
             padding: EdgeInsets.only(left: 14.0),
-            height: 52,
             decoration: BoxDecoration(
                 border: Border.all(
                   width: 1.0,
@@ -52,9 +56,21 @@ class InputField extends StatelessWidget {
                     controller: controller,
                     style: subTitleTextStle,
                     inputFormatters: inputFormatters,
+                    maxLength: maxLength,
+                    maxLines: maxLines,
+                    buildCounter: (
+                      BuildContext context, {
+                      required int currentLength,
+                      required bool isFocused,
+                      required int? maxLength,
+                    }) =>
+                        null,
                     decoration: InputDecoration(
                       hintText: hint,
                       hintStyle: subTitleTextStle,
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      border: InputBorder.none,
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
                           color: context.theme.backgroundColor,

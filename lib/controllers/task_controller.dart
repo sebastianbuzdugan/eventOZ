@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import '../db/db_helper.dart';
 import '../models/task.dart';
@@ -27,10 +28,15 @@ class TaskController extends GetxController {
   }
 
   // sterge
-  void deleteTask(Task task) async {
-    await DBHelper.delete(task);
-    getTasks();
-  }
+  // void deleteTask(Task task) async {
+  //   await DBHelper.delete(task);
+  //   getTasks();
+  // }
+
+void deleteTask(Task task) async {
+  await FirebaseFirestore.instance.collection('tasks').doc(task.id.toString()).delete();
+  getTasks();
+}
 
   // updatează
   void markTaskCompleted(int? id) async {

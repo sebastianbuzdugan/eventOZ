@@ -13,6 +13,28 @@ class TaskTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     
+
+   if (task.titl2 == null ||
+    task.location == null ||
+    task.note == null ||
+    task.price == null ||
+    task.startTime == null ||
+    task.endTime == null ||
+    task.date == null) {
+  // Log the null values to the console
+  print('task.titl2: ${task.titl2}');
+  print('task.location: ${task.location}');
+  print('task.note: ${task.note}');
+  print('task.price: ${task.price}');
+  print('task.startTime: ${task.startTime}');
+  print('task.endTime: ${task.endTime}');
+  print('task.date: ${task.date}');
+
+  // Handle the null case
+  return Container();
+}
+
     return Container(
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
@@ -34,15 +56,15 @@ class TaskTile extends StatelessWidget {
                   task.titl2!,
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
                 SizedBox(
                   height: 12,
                 ),
-             
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -60,28 +82,33 @@ class TaskTile extends StatelessWidget {
                     ),
                   ],
                 ),
-             
                 SizedBox(height: 6),
                 Row(
                   children: [
-                      Icon(
+                    Icon(
                       Icons.description_outlined,
                       color: Colors.grey[200],
                       size: 18,
                     ),
                     SizedBox(width: 4),
-                    Text(
-                      task.note!,
-                      style: GoogleFonts.lato(
-                        textStyle: TextStyle(fontSize: 15, color: Colors.grey[100]),
+                    Container(
+                      width: 280, // Set the width of the container
+                      child: Text(
+                        task.note!,
+                        style: GoogleFonts.lato(
+                          textStyle:
+                              TextStyle(fontSize: 15, color: Colors.grey[100]),
+                        ),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
                 ),
-                   SizedBox(
+                SizedBox(
                   height: 6,
                 ),
-                   Row(
+                Row(
                   children: [
                     Icon(
                       Icons.price_check_rounded,
@@ -113,18 +140,15 @@ class TaskTile extends StatelessWidget {
                       "${task.startTime} - ${task.endTime}",
                       style: GoogleFonts.lato(
                         textStyle:
-                            TextStyle(fontSize: 14,
-                          
-                             color: Colors.grey[100]),
+                            TextStyle(fontSize: 14, color: Colors.grey[100]),
                       ),
                     ),
                   ],
-                ),  
-                     SizedBox(height: 6),
-                     
+                ),
+                SizedBox(height: 6),
                 Row(
                   children: [
-                      Icon(
+                    Icon(
                       Icons.edit_calendar_rounded,
                       color: Colors.grey[200],
                       size: 18,
@@ -133,7 +157,8 @@ class TaskTile extends StatelessWidget {
                     Text(
                       task.date!,
                       style: GoogleFonts.lato(
-                        textStyle: TextStyle(fontSize: 15, color: Colors.grey[100]),
+                        textStyle:
+                            TextStyle(fontSize: 15, color: Colors.grey[100]),
                       ),
                     ),
                   ],

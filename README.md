@@ -1,9 +1,10 @@
-# flutter4f
 
-A new Flutter project.
+Lucrare LICENTA - BUZDUGAN SEBASTIAN
 
 ## Getting Started
 
-to run this project: flutter run --no-sound-null-safety
+PORNIRE PROIECT: flutter run --no-sound-null-safety
 
-# licenta-final-
+ FVM USE (2.13.0-0.3.pre)
+
+

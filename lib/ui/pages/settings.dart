@@ -18,44 +18,45 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
-  return Scaffold(
-    backgroundColor: secClr,
-    appBar: AppBar(
-      leading: null,
-      title: Text('🌟Settings'),
-      backgroundColor: primaryClr,
-    ),
-    body: Container(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-                        Spacer(flex: 1),
-
-            languageListTile(context),
-            SizedBox(
-              height: 25,
-            ),
-            _updateP(),
-            SizedBox(
-              height: 25,
-            ),
-            _signOut(),
-                        Spacer(flex: 2),
-
-          ],
+    return Scaffold(
+      backgroundColor: secClr,
+      appBar: AppBar(
+        leading: null,
+        title: Text('🌟Settings'),
+        backgroundColor: primaryClr,
+      ),
+      body: Container(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Spacer(flex: 1),
+              languageListTile(context),
+              SizedBox(
+                height: 25,
+              ),
+              _updateP(),
+              SizedBox(
+                height: 25,
+              ),
+              _signOut(),
+              SizedBox(
+                height: 25,
+              ),
+              _help(),
+              Spacer(flex: 2),
+            ],
+          ),
         ),
       ),
-    ),
-  );
-}
-
+    );
+  }
 
   languageListTile(BuildContext context) {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     return Container(
-      width: w * 0.8,
+      width: w * 0.6,
       height: h * 0.07,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
@@ -153,15 +154,35 @@ class _SettingsState extends State<Settings> {
     );
   }
 
-  _howtoUse() {
+  _help() {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     return GestureDetector(
-      onTap: () async {
-        // Get.to(UpdateProfileUI());
+      onTap: () {
+        showModalBottomSheet(
+          context: context,
+          barrierColor: Colors.black.withOpacity(0.5),
+          builder: (BuildContext context) {
+            return Container(
+              color: primaryClr,
+              height: 200,
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    'help.text'.tr,
+                    style: TextStyle(color: Colors.white,fontSize: 16, fontWeight: FontWeight.bold,
+),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            );
+          },
+        );
       },
       child: Container(
-        width: w * 0.50,
+        width: w * 0.30,
         height: h * 0.07,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
@@ -172,7 +193,7 @@ class _SettingsState extends State<Settings> {
         ),
         child: Center(
           child: Text(
-            "howToUse".tr,
+            "help".tr,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,

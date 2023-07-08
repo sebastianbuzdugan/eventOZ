@@ -6,8 +6,6 @@ import 'package:get/get.dart';
 import 'package:loginv1/controllers/controllers.dart';
 import 'package:loginv1/services/Database.dart';
 import '../../../constants/theme.dart';
-import '/controllers/task_controller.dart';
-import '/models/task.dart';
 import '/ui/widgets/button.dart';
 import '/ui/widgets/input_field.dart';
 import 'package:intl/intl.dart';
@@ -83,12 +81,14 @@ class _AddTaskFirebaseState extends State<AddTaskFirebase> {
               InputField(
                 title: 'title'.tr,
                 hint: 'titled'.tr,
+                maxLength: 30,
                 controller: _titleController,
               ),
               InputField(
                 title: 'price'.tr,
                 hint: 'priced'.tr,
                 controller: _priceController,
+                maxLength: 7,
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
                 ],
@@ -96,6 +96,7 @@ class _AddTaskFirebaseState extends State<AddTaskFirebase> {
               InputField(
                 title: 'loc'.tr,
                 hint: 'locd'.tr,
+                maxLength: 30,
                 controller: _locationController,
               ),
               InputField(
@@ -154,76 +155,7 @@ class _AddTaskFirebaseState extends State<AddTaskFirebase> {
                   )
                 ],
               ),
-              // InputField(
-              //   title: "Remind",
-              //   hint: "$_selectedRemind minutes early",
-              //   widget: Row(
-              //     children: [
-              //       DropdownButton<String>(
-              //           //value: _selectedRemind.toString(),
-              //           icon: Icon(
-              //             Icons.keyboard_arrow_down,
-              //             color: Colors.grey,
-              //           ),
-              //           iconSize: 32,
-              //           elevation: 4,
-              //           style: subTitleTextStle,
-              //           underline: Container(height: 0),
-              //           onChanged: (String? newValue) {
-              //             setState(() {
-              //               _selectedRemind = int.parse(newValue!);
-              //             });
-              //           },
-              //           items: remindList
-              //               .map<DropdownMenuItem<String>>((int value) {
-              //             return DropdownMenuItem<String>(
-              //               value: value.toString(),
-              //               child: Text(value.toString()),
-              //             );
-              //           }).toList()),
-              //       SizedBox(width: 6),
-              //     ],
-              //   ),
-              // ),
-              // InputField(
-              //   title: "Repeat",
-              //   hint: _selectedRepeat,
-              //   widget: Row(
-              //     children: [
-              //       Container(
-              //         child: DropdownButton<String>(
-              //             dropdownColor: Colors.blueGrey,
-              //             //value: _selectedRemind.toString(),
-              //             icon: Icon(
-              //               Icons.keyboard_arrow_down,
-              //               color: Colors.grey,
-              //             ),
-              //             iconSize: 32,
-              //             elevation: 4,
-              //             style: subTitleTextStle,
-              //             underline: Container(
-              //               height: 6,
-              //             ),
-              //             onChanged: (String? newValue) {
-              //               setState(() {
-              //                 _selectedRepeat = newValue;
-              //               });
-              //             },
-              //             items: repeatList
-              //                 .map<DropdownMenuItem<String>>((String value) {
-              //               return DropdownMenuItem<String>(
-              //                 value: value,
-              //                 child: Text(
-              //                   value,
-              //                   style: TextStyle(color: Colors.white),
-              //                 ),
-              //               );
-              //             }).toList()),
-              //       ),
-              //       SizedBox(width: 6),
-              //     ],
-              //   ),
-              // ),
+
               SizedBox(
                 height: 18.0,
               ),
@@ -307,24 +239,6 @@ class _AddTaskFirebaseState extends State<AddTaskFirebase> {
     }
   }
 
-  // _addTaskToDB() async {
-  //   await _taskController.addTask(
-  //     task: Task(
-  //       note: _noteController.text,
-  //       titl2: _titleController.text,
-  //       price: _priceController.text,
-  //       location: _locationController.text,
-  //       date: DateFormat.yMd().format(_selectedDate),
-  //       startTime: _startTime,
-  //       endTime: _endTime,
-  //       remind: _selectedRemind,
-  //       repeat: _selectedRepeat,
-  //       color: _selectedColor,
-  //       isCompleted: 0,
-  //     ),
-  //   );
-  // } //TODO Edited
-
   _colorChips() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(
@@ -393,26 +307,6 @@ class _AddTaskFirebaseState extends State<AddTaskFirebase> {
         ]);
   }
 
-  // _compareTime() {
-  //   print("compare time");
-  //   print(_startTime);
-  //   print(_endTime);
-
-  //   var _start = double.parsestartTime);
-  //   var _end = toDouble(_endTime);
-
-  //   print(_start);
-  //   print(_end);
-
-  //   if (_start > _end) {
-  //     Get.snackbar(
-  //       "Invalid!",
-  //       "Time duration must be positive.",
-  //       snackPosition: SnackPosition.BOTTOM,
-  //       overlayColor: context.theme.backgroundColor,
-  //     );
-  //   }
-  // }
 
   double toDouble(TimeOfDay myTime) => myTime.hour + myTime.minute / 60.0;
 

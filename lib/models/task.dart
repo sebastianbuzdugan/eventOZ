@@ -78,4 +78,22 @@ class Task {
     data['createTime'] = this.createTime;
     return data;
   }
+  factory Task.fromMap(Map<String, dynamic> map) {
+  return Task(
+    id: map['id'],
+    titl2: map['titl2'],
+    price: map['price'],
+    location: map['location'],
+    note: map['note'],
+    isCompleted: map['isCompleted'],
+    date: map['date'],
+    startTime: map['startTime'],
+    endTime: map['endTime'],
+    color: map['color'],
+    remind: map['remind'],
+    repeat: map['repeat'],
+    createTime: map['createTime'],
+  );
+}
+
 }

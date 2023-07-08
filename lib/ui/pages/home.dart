@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -24,8 +25,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  late Stream<List<Task>> _taskStream;
+    late Stream<List<Task>> _taskStream;
 
+//  Stream<List<Task>> _taskStream = FirebaseFirestore.instance
+//       .collection('tasks')
+//       .snapshots()
+//       .map((snapshot) => snapshot.docs.map((doc) => Task.fromMap(doc.data())).toList());
   @override
   DateTime _selectedDate = DateTime.parse(DateTime.now().toString());
   final _taskController = Get.put(TaskController());
@@ -38,7 +43,8 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    _taskStream = DatabaseService().tasks;
+      _taskStream = DatabaseService().tasks;
+
     _timer = Timer(Duration(milliseconds: 500), () {
       setState(() {
         animate = true;
@@ -218,7 +224,7 @@ class _HomeState extends State<Home> {
                           children: [
                             GestureDetector(
                                 onTap: () {
-                                  //  showBottomSheet(context, task);
+                                   showBottomSheet(context, task);
                                 },
                                 child: TaskTile(task)),
                           ],
@@ -240,7 +246,7 @@ class _HomeState extends State<Home> {
                           children: [
                             GestureDetector(
                                 onTap: () {
-                                  //showBottomSheet(context, task);
+                                  showBottomSheet(context, task);
                                 },
                                 child: TaskTile(task)),
                           ],
@@ -275,28 +281,16 @@ class _HomeState extends State<Home> {
                   color: Get.isDarkMode ? Colors.grey[600] : Colors.grey[300]),
             ),
             Spacer(),
-            task.isCompleted == 1
-                ? Container()
-                : _buildBottomSheetButton(
-                    label: "GOING",
-                    onTap: () {
-                      _taskController.markTaskCompleted(task.id);
-                      Get.back();
-                    },
-                    clr: Colors.green),
-            _buildBottomSheetButton(
-                label: "NOT GOING",
-                onTap: () {
-                  //TO FIX THIS:
-                  // _taskController.deleteTask(task);
-                  //             FirebaseFirestore.instance
-                  // .collection('tasks')
-                  // .doc(task.id)
-                  // .delete();
+        _buildBottomSheetButton(
+  label: "DELETE",
+  onTap: () {
+    // Uncomment this code to enable the delete functionality
+    _taskController.deleteTask(task);
+    Get.back();
+  },
+  clr: Colors.red[300],
+),
 
-                  Get.back();
-                },
-                clr: Colors.red[300]),
             SizedBox(
               height: 20,
             ),

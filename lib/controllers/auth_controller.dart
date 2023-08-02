@@ -4,10 +4,9 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:loginv1/ui/pages/home_page.dart';
-
 import '../helpers/gravatar.dart';
 import '../models/user_models.dart';
+import '../ui/pages/home_page.dart';
 import '../ui/reglog/auth/login_page.dart';
 
 class AuthController extends GetxController {
@@ -102,45 +101,54 @@ class AuthController extends GetxController {
   }
 
   // inregistrare cu email si password
-  registerWithEmailAndPassword(BuildContext context) async {
-    try {
-      await _auth
-          .createUserWithEmailAndPassword(
-              email: emailController.text, password: passwordController.text)
-          .then((result) async {
-        print('uID: ' + result.user!.uid.toString());
-        print('email: ' + result.user!.email.toString());
-        //extrage photo url
-        Gravatar gravatar = Gravatar(emailController.text);
-        String gravatarUrl = gravatar.imageUrl(
-          size: 200,
-          defaultImage: GravatarImage.retro,
-          rating: GravatarRating.pg,
-          fileExtension: true,
-        );
-     
-        //creaza obiect nou
-        UserModel _newUser = UserModel(
-            uid: result.user!.uid,
-            email: result.user!.email!,
-            name: nameController.text,
-            sex: sexController.text,
-            age: ageController.text,
-            photoUrl: gravatarUrl,
-            );
-        //creaza utilizator in firebase
-        _createUserFirestore(_newUser, result.user!);
-        emailController.clear();
-        passwordController.clear();
-      });
-    } on FirebaseAuthException catch (error) {
-      Get.snackbar('auth.signUpErrorTitle'.tr, error.message!,
-          snackPosition: SnackPosition.BOTTOM,
-          duration: Duration(seconds: 10),
-          backgroundColor: Get.theme.snackBarTheme.backgroundColor,
-          colorText: Get.theme.snackBarTheme.actionTextColor);
-    }
+registerWithEmailAndPassword(BuildContext context) async {
+  try {
+    await _auth
+        .createUserWithEmailAndPassword(
+            email: emailController.text, password: passwordController.text)
+        .then((result) async {
+      print('uID: ' + result.user!.uid.toString());
+      print('email: ' + result.user!.email.toString());
+
+      // Update the user's display name
+      await result.user!.updateDisplayName(nameController.text);
+
+      //extrage photo url
+      Gravatar gravatar = Gravatar(emailController.text);
+      String gravatarUrl = gravatar.imageUrl(
+        size: 200,
+        defaultImage: GravatarImage.retro,
+        rating: GravatarRating.pg,
+        fileExtension: true,
+      );
+
+      //creaza obiect nou
+      UserModel _newUser = UserModel(
+        uid: result.user!.uid,
+        email: result.user!.email!,
+        name: nameController.text,
+        sex: sexController.text,
+        age: ageController.text,
+        photoUrl: gravatarUrl,
+      );
+
+      //creaza utilizator in firebase
+      _createUserFirestore(_newUser, result.user!);
+      emailController.clear();
+      passwordController.clear();
+    });
+  } on FirebaseAuthException catch (error) {
+    Get.snackbar(
+        'auth.signUpErrorTitle'.tr,
+        error.message!,
+        snackPosition: SnackPosition.BOTTOM,
+        duration: Duration(seconds: 10),
+        backgroundColor: Get.theme.snackBarTheme.backgroundColor,
+        colorText: Get.theme.snackBarTheme.actionTextColor);
   }
+}
+
+
 
   Future<void> updateUser(BuildContext context, UserModel user, String oldEmail,
       String password) async {

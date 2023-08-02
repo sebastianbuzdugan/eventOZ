@@ -19,65 +19,67 @@ class ResetPasswordUI extends StatelessWidget {
     double h = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
-      body:Column(
-        children: [
-                  Container(
-            width: w,
-            height: h*0.3,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(
-                  "lib/img/loginimg.png"
+      body:SingleChildScrollView(
+        child: Column(
+          children: [
+                    Container(
+              width: w,
+              height: h*0.3,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                    "lib/img/loginimg.png"
+                  ),
+                  fit: BoxFit.cover,
+                )
+          
+              ),
+            ), 
+        Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                   
+                    SizedBox(height: h/3),
+                    FormInputFieldWithIcon(
+                      controller: authController.emailController,
+                      iconPrefix: Icons.email,
+                      labelText: 'auth.emailFormField'.tr,
+                      validator: Validator().email,
+                      keyboardType: TextInputType.emailAddress,
+                      onChanged: (value) => null,
+                      onSaved: (value) =>
+                          authController.emailController.text = value as String,
+                    ),
+                    FormVerticalSpace(),
+                    
+                    MyButton(
+                        label: 'auth.resetPasswordButton'.tr,
+                        onTap: () async {
+                          if (_formKey.currentState!.validate()) {
+                            await authController.sendPasswordResetEmail(context);
+                          }
+                        }),
+                    FormVerticalSpace(),
+                    signInLink(context),
+                    LabelButton(
+                      labelText: 'goBackHome'.tr,
+                      onPressed: () => Get.to(SignInUI())
+                    ),
+                  ],
                 ),
-                fit: BoxFit.cover,
-              )
-        
-            ),
-          ), 
-      Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                 
-                  SizedBox(height: h/3),
-                  FormInputFieldWithIcon(
-                    controller: authController.emailController,
-                    iconPrefix: Icons.email,
-                    labelText: 'auth.emailFormField'.tr,
-                    validator: Validator().email,
-                    keyboardType: TextInputType.emailAddress,
-                    onChanged: (value) => null,
-                    onSaved: (value) =>
-                        authController.emailController.text = value as String,
-                  ),
-                  FormVerticalSpace(),
-                  
-                  MyButton(
-                      label: 'auth.resetPasswordButton'.tr,
-                      onTap: () async {
-                        if (_formKey.currentState!.validate()) {
-                          await authController.sendPasswordResetEmail(context);
-                        }
-                      }),
-                  FormVerticalSpace(),
-                  signInLink(context),
-                  LabelButton(
-                    labelText: 'goBackHome'.tr,
-                    onPressed: () => Get.to(SignInUI())
-                  ),
-                ],
               ),
             ),
           ),
         ),
-      ),
-        ],
+          ],
+        ),
       ),
         
     );

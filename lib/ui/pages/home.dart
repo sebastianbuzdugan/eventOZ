@@ -25,12 +25,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-    late Stream<List<Task>> _taskStream;
-
-//  Stream<List<Task>> _taskStream = FirebaseFirestore.instance
-//       .collection('tasks')
-//       .snapshots()
-//       .map((snapshot) => snapshot.docs.map((doc) => Task.fromMap(doc.data())).toList());
+ Stream<List<Task>> _taskStream = FirebaseFirestore.instance
+      .collection('tasks')
+      .snapshots()
+      .map((snapshot) => snapshot.docs.map((doc) => Task.fromMap(doc.data())).toList());
   @override
   DateTime _selectedDate = DateTime.parse(DateTime.now().toString());
   final _taskController = Get.put(TaskController());
@@ -244,11 +242,13 @@ class _HomeState extends State<Home> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                             widget.isAdmin
+              ? 
                             GestureDetector(
                                 onTap: () {
                                   showBottomSheet(context, task);
                                 },
-                                child: TaskTile(task)),
+                                child: TaskTile(task)): TaskTile(task),
                           ],
                         ),
                       ),
@@ -267,8 +267,8 @@ class _HomeState extends State<Home> {
         color: Colors.orange[50],
         padding: EdgeInsets.only(top: 4),
         height: task.isCompleted == 1
-            ? SizeConfig.screenHeight * 0.24 * 1 / 2
-            : SizeConfig.screenHeight * 0.36 * 1 / 2,
+            ? SizeConfig.screenHeight * 0.18 * 1 / 2
+            : SizeConfig.screenHeight * 0.24 * 1 / 2,
         width: SizeConfig.screenWidth,
         // color: Get.isDarkMode ? darkHeaderClr : Colors.white,
         child: Column(
@@ -285,7 +285,7 @@ class _HomeState extends State<Home> {
   label: "DELETE",
   onTap: () {
     // Uncomment this code to enable the delete functionality
-    _taskController.deleteTask(task);
+    DatabaseService().deleteTask(task.docId!);
     Get.back();
   },
   clr: Colors.red[300],

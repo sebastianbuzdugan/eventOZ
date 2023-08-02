@@ -28,93 +28,95 @@ class UpdateProfileUI extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: 
-      Column(
-        children: [
-                  Container(
-            width: w,
-            height: h*0.3,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(
-                  "lib/img/loginimg.png"
-                ),
-                fit: BoxFit.cover,
-              )
-        
-            ),
-          ),Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Center(
-            child: SingleChildScrollView(
-              child: Container(
-                margin: const EdgeInsets.only(left: 20, right: 20),
-                width: w,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-      
-                    
-                    SizedBox(height: h/4),
-                    FormInputFieldWithIcon(
-                      controller: authController.nameController,
-                      iconPrefix: Icons.person,
-                      labelText: 'auth.nameFormField'.tr,
-                      validator: Validator().name,
-                      onChanged: (value) => null,
-                      onSaved: (value) =>
-                          authController.nameController.text = value!,
-                    ),
-                    FormVerticalSpace(),
-                    FormInputFieldWithIcon(
-                      controller: authController.emailController,
-                      iconPrefix: Icons.email,
-                      labelText: 'auth.emailFormField'.tr,
-                      validator: Validator().email,
-                      keyboardType: TextInputType.emailAddress,
-                      onChanged: (value) => null,
-                      onSaved: (value) =>
-                          authController.emailController.text = value!,
-                    ),
-                    FormVerticalSpace(),
-                    MyButton(
-                        label: 'auth.updateUser'.tr,
-                        onTap: () async {
-                          if (_formKey.currentState!.validate()) {
-                            SystemChannels.textInput
-                                .invokeMethod('TextInput.hide');
-                            UserModel _updatedUser = UserModel(
-                                sex: authController.sexController.text,
-                                age: authController.ageController.text,
-                                uid: authController.firestoreUser.value!.uid,
-                                name: authController.nameController.text,
-                                email: authController.emailController.text,
-                               
-                                photoUrl:
-                                    authController.firestoreUser.value!.photoUrl);
-                            _updateUserConfirm(context, _updatedUser,
-                                authController.firestoreUser.value!.email);
-                          }
-                        }),
-                    FormVerticalSpace(),
-                    LabelButton(
-                      labelText: 'auth.resetPasswordLabelButton'.tr,
-                      onPressed: () => Get.to(ResetPasswordUI()),
-                    ),
-                     LabelButton(
-                    labelText: 'goBackHome'.tr,
-                    onPressed: () => Get.back(),
+      SingleChildScrollView(
+        child: Column(
+          children: [
+                    Container(
+              width: w,
+              height: h*0.3,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(
+                    "lib/img/loginimg.png"
                   ),
-                  ],
+                  fit: BoxFit.cover,
+                )
+          
+              ),
+            ),Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Center(
+              child: SingleChildScrollView(
+                child: Container(
+                  margin: const EdgeInsets.only(left: 20, right: 20),
+                  width: w,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+        
+                      
+                      SizedBox(height: h/4),
+                      FormInputFieldWithIcon(
+                        controller: authController.nameController,
+                        iconPrefix: Icons.person,
+                        labelText: 'auth.nameFormField'.tr,
+                        validator: Validator().name,
+                        onChanged: (value) => null,
+                        onSaved: (value) =>
+                            authController.nameController.text = value!,
+                      ),
+                      FormVerticalSpace(),
+                      FormInputFieldWithIcon(
+                        controller: authController.emailController,
+                        iconPrefix: Icons.email,
+                        labelText: 'auth.emailFormField'.tr,
+                        validator: Validator().email,
+                        keyboardType: TextInputType.emailAddress,
+                        onChanged: (value) => null,
+                        onSaved: (value) =>
+                            authController.emailController.text = value!,
+                      ),
+                      FormVerticalSpace(),
+                      MyButton(
+                          label: 'auth.updateUser'.tr,
+                          onTap: () async {
+                            if (_formKey.currentState!.validate()) {
+                              SystemChannels.textInput
+                                  .invokeMethod('TextInput.hide');
+                              UserModel _updatedUser = UserModel(
+                                  sex: authController.sexController.text,
+                                  age: authController.ageController.text,
+                                  uid: authController.firestoreUser.value!.uid,
+                                  name: authController.nameController.text,
+                                  email: authController.emailController.text,
+                                 
+                                  photoUrl:
+                                      authController.firestoreUser.value!.photoUrl);
+                              _updateUserConfirm(context, _updatedUser,
+                                  authController.firestoreUser.value!.email);
+                            }
+                          }),
+                      FormVerticalSpace(),
+                      LabelButton(
+                        labelText: 'auth.resetPasswordLabelButton'.tr,
+                        onPressed: () => Get.to(ResetPasswordUI()),
+                      ),
+                       LabelButton(
+                      labelText: 'goBackHome'.tr,
+                      onPressed: () => Get.back(),
+                    ),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
         ),
-      ),
-        ],
+          ],
+        ),
       ),
     );
   }

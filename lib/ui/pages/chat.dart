@@ -4,8 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:loginv1/constants/theme.dart';
 import 'package:loginv1/ui/pages/homechat.dart';
-import 'package:loginv1/ui/reglog/auth/auth.dart';
-
 import '../../controllers/controllers.dart';
 import '../../models/modele.dart';
 
@@ -13,11 +11,18 @@ final _firestore = FirebaseFirestore.instance;
 late User loggedInUser;
 
 class ChatScreen extends StatefulWidget {
+  final bool isAdmin;
+
+  ChatScreen({required this.isAdmin});
+
   @override
-  _ChatScreenState createState() => _ChatScreenState();
+  _ChatScreenState createState() => _ChatScreenState(isAdmin: isAdmin);
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  final bool isAdmin;
+  _ChatScreenState({required this.isAdmin});
+
   final messageTextController = TextEditingController();
   final _auth = FirebaseAuth.instance;
   final AuthController authController = AuthController.to;
@@ -47,24 +52,24 @@ class _ChatScreenState extends State<ChatScreen> {
       backgroundColor: secClr,
       appBar: AppBar(
         leading: null,
-        
         title: Text('⚡️Chat'),
         actions: [
-                FloatingActionButton(
-           
-       onPressed: () async {
-
-        User? user = FirebaseAuth.instance.currentUser;
- final DocumentSnapshot documentSnapshot =
-            await FirebaseFirestore.instance.collection('users').doc(user!.uid).get();
-       UserModel userModel   =UserModel.fromMap(documentSnapshot.data() as Map<String, dynamic>);
-         Get.to(HomeChat(userModel));
-       },
-        elevation: 1,
-        backgroundColor: primaryClr,
-        child: const Icon(Icons.search),
-      ),
-
+          FloatingActionButton(
+            onPressed: () async {
+              User? user = FirebaseAuth.instance.currentUser;
+              final DocumentSnapshot documentSnapshot = await FirebaseFirestore
+                  .instance
+                  .collection('users')
+                  .doc(user!.uid)
+                  .get();
+              UserModel userModel = UserModel.fromMap(
+                  documentSnapshot.data() as Map<String, dynamic>);
+              Get.to(HomeChat(userModel));
+            },
+            elevation: 1,
+            backgroundColor: primaryClr,
+            child: const Icon(Icons.search),
+          ),
         ],
         backgroundColor: primaryClr,
       ),
@@ -74,49 +79,51 @@ class _ChatScreenState extends State<ChatScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             MessagesStream(),
-            Container(
-              decoration: kMessageContainerDecoration,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    child: TextField(
-                      cursorColor: primaryClr,
-                      controller: messageTextController,
-                      onChanged: (value) {
-                        messageText = value;
-                      },
-                      decoration: kMessageTextFieldDecoration,
-                    ),
+            isAdmin
+              ? Container(
+                  decoration: kMessageContainerDecoration,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                        child: TextField(
+                          cursorColor: primaryClr,
+                          controller: messageTextController,
+                          onChanged: (value) {
+                            messageText = value;
+                          },
+                          decoration: kMessageTextFieldDecoration,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          if (messageText.isNotEmpty) {
+                            print('USERNAME: ${loggedInUser.displayName}' );
+                            messageTextController.clear();
+                            _firestore.collection('messages').add({
+                              'text': messageText,
+                              'name': loggedInUser.displayName,
+                              'sender': loggedInUser.email,
+                              'msgTime': DateTime.now(),
+                            });
+                            messageText = '';
+                          }
+                        },
+                        child: Text(
+                          'send'.tr,
+                          style: kSendButtonTextStyle,
+                        ),
+                      ),
+                    ],
                   ),
-       TextButton(
-  onPressed: () {
-    if (messageText.isNotEmpty) {
-      print('ASD ${loggedInUser.email}');
-      messageTextController.clear();
-      _firestore.collection('messages').add({
-        'text': messageText,
-        'sender': loggedInUser.email,
-        'msgTime': DateTime.now(),
-      });
-      messageText = '';
-    }
-  },
-  child: Text(
-    'send'.tr,
-    style: kSendButtonTextStyle,
-  ),
-),
-                ],
-              ),
-            ),
+                )
+              : SizedBox.shrink(),
           ],
         ),
       ),
     );
   }
 }
-
 class MessagesStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -127,7 +134,7 @@ class MessagesStream extends StatelessWidget {
           .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-         return Center(
+          return Center(
             child: CircularProgressIndicator(
               backgroundColor: Colors.lightBlueAccent,
             ),
@@ -136,24 +143,26 @@ class MessagesStream extends StatelessWidget {
         final messages = snapshot.data!.docs.reversed;
         List<MessageBubble> messageBubbles = [];
         for (var message in messages) {
-          final messageText = (message.data() as Map<String, dynamic>)['text'];
+          final messageText =
+              (message.data() as Map<String, dynamic>)['text'];
           final messageSender =
               (message.data() as Map<String, dynamic>)['sender'];
-
+          final messageName =
+              (message.data() as Map<String, dynamic>)['name'];
           final currentUser = loggedInUser.email;
-
           final messageBubble = MessageBubble(
             sender: messageSender,
+            name: messageName,
             text: messageText,
             isMe: currentUser == messageSender,
           );
-
           messageBubbles.add(messageBubble);
         }
         return Expanded(
           child: ListView(
             reverse: true,
-            padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+            padding:
+                EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
             children: messageBubbles,
           ),
         );
@@ -162,14 +171,17 @@ class MessagesStream extends StatelessWidget {
   }
 }
 
+
 class MessageBubble extends StatelessWidget {
   MessageBubble({
-    this.sender = '',
+    this.sender,
+    this.name,
     this.text = '',
     this.isMe = false,
   });
 
-  final String sender;
+  final String? sender;
+  final String? name;
   final String text;
   final bool isMe;
 
@@ -178,11 +190,17 @@ class MessageBubble extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(10.0),
       child: Column(
-        crossAxisAlignment:
-            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            sender,
+            name ?? 'Unknown',
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.black54,
+            ),
+          ),
+          Text(
+            sender ?? 'Unknown',
             style: TextStyle(
               fontSize: 12.0,
               color: Colors.black54,
@@ -202,7 +220,8 @@ class MessageBubble extends StatelessWidget {
             elevation: 5.0,
             color: isMe ? primaryClr : Colors.white,
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              padding:
+                  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
               child: Text(
                 text,
                 style: TextStyle(

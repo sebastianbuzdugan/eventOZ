@@ -29,6 +29,7 @@ class _MessageTextFieldState extends State<MessageTextField> {
                cursorColor: primaryClr,
                controller: _controller,
                 decoration: kMessageTextFieldDecoration,
+                
              )),
              SizedBox(width: 20,),
              GestureDetector(

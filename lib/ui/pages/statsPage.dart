@@ -21,8 +21,6 @@ class _statsPageState extends State<statsPage> {
   int _currentIndexNumber = 0;
   double _initial = 0.1;
 
-
-
   @override
   Widget build(BuildContext context) {
     // return Scaffold(
@@ -31,41 +29,41 @@ class _statsPageState extends State<statsPage> {
     //       elevation: 0.0,
     //     ),
     //     body: BottomCardWidget(task: widget.task)
-        // body: Container(
-        //   padding: EdgeInsetsDirectional.fromSTEB(0, 200, 0, 0),
-        //   decoration: BoxDecoration(
-        //     gradient: LinearGradient(
-        //       colors: [
-        //         Color(0xFFFFF3E0),
-        //         Color(0xFFFF6E40),
-        //       ],
-        //       begin: Alignment.topCenter,
-        //       end: Alignment.bottomCenter,
-        //     ),
-        //   ),
-        //   child: StreamBuilder(
-        //     initialData: false,
-        //     stream: slimyCard.stream,
-        //     builder: ((BuildContext context, AsyncSnapshot snapshot) {
-        //       return ListView(
-        //         padding: EdgeInsets.zero,
-        //         children: <Widget>[
-        //           SizedBox(height: 70),
-        //           SlimyCard(
-        //             color: secClr,
-        //             topCardWidget: topCardWidget((snapshot.data)
-        //                 ? 'lib/img/chart.jpeg'
-        //                 : 'lib/img/chart.jpeg'),
-        //             bottomCardWidget: BottomCardWidget(
-        //               task: widget.task,
-        //             ),
-        //           ),
-        //         ],
-        //       );
-        //     }),
-        //   ),
-        // ),
-return Scaffold(
+    // body: Container(
+    //   padding: EdgeInsetsDirectional.fromSTEB(0, 200, 0, 0),
+    //   decoration: BoxDecoration(
+    //     gradient: LinearGradient(
+    //       colors: [
+    //         Color(0xFFFFF3E0),
+    //         Color(0xFFFF6E40),
+    //       ],
+    //       begin: Alignment.topCenter,
+    //       end: Alignment.bottomCenter,
+    //     ),
+    //   ),
+    //   child: StreamBuilder(
+    //     initialData: false,
+    //     stream: slimyCard.stream,
+    //     builder: ((BuildContext context, AsyncSnapshot snapshot) {
+    //       return ListView(
+    //         padding: EdgeInsets.zero,
+    //         children: <Widget>[
+    //           SizedBox(height: 70),
+    //           SlimyCard(
+    //             color: secClr,
+    //             topCardWidget: topCardWidget((snapshot.data)
+    //                 ? 'lib/img/chart.jpeg'
+    //                 : 'lib/img/chart.jpeg'),
+    //             bottomCardWidget: BottomCardWidget(
+    //               task: widget.task,
+    //             ),
+    //           ),
+    //         ],
+    //       );
+    //     }),
+    //   ),
+    // ),
+    return Scaffold(
         backgroundColor: Colors.grey.shade100,
         appBar: AppBar(
             centerTitle: true,
@@ -96,59 +94,53 @@ return Scaffold(
                   child: FlipCard(
                       direction: FlipDirection.VERTICAL,
                       back: BottomCardWidget(task: widget.task),
-                      front: ReusableCard(
-                          text: 'pressDetails'.tr))),
-     
+                      front: ReusableCard(text: 'pressDetails'.tr))),
+                      
             ])));
-      
-        
   }
-
- 
 }
 
-
-  // Widget topCardWidget(String imagePath) {
-  //   return Column(
-  //     mainAxisAlignment: MainAxisAlignment.center,
-  //     children: <Widget>[
-  //       Container(
-  //         height: 70,
-  //         width: 70,
-  //         decoration: BoxDecoration(
-  //           color: Colors.black,
-  //           borderRadius: BorderRadius.circular(15),
-  //           image: DecorationImage(image: AssetImage(imagePath)),
-  //           boxShadow: [
-  //             BoxShadow(
-  //               color: Colors.black.withOpacity(0.1),
-  //               blurRadius: 20,
-  //               spreadRadius: 1,
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //       SizedBox(height: 15),
-  //       Text(
-  //         'Stats',
-  //         style: TextStyle(color: Colors.black, fontSize: 20),
-  //       ),
-  //       SizedBox(height: 15),
-  //       Center(
-  //         child: Text(
-  //           'Flutter is Google’s UI toolkit for building beautiful, natively compiled applications'
-  //           ' for mobile, web, and desktop from a single codebase.',
-  //           style: TextStyle(
-  //               color: Colors.black.withOpacity(0.8),
-  //               fontSize: 12,
-  //               fontWeight: FontWeight.w500),
-  //           textAlign: TextAlign.center,
-  //         ),
-  //       ),
-  //       SizedBox(height: 10),
-  //     ],
-  //   );
-  // }
+// Widget topCardWidget(String imagePath) {
+//   return Column(
+//     mainAxisAlignment: MainAxisAlignment.center,
+//     children: <Widget>[
+//       Container(
+//         height: 70,
+//         width: 70,
+//         decoration: BoxDecoration(
+//           color: Colors.black,
+//           borderRadius: BorderRadius.circular(15),
+//           image: DecorationImage(image: AssetImage(imagePath)),
+//           boxShadow: [
+//             BoxShadow(
+//               color: Colors.black.withOpacity(0.1),
+//               blurRadius: 20,
+//               spreadRadius: 1,
+//             ),
+//           ],
+//         ),
+//       ),
+//       SizedBox(height: 15),
+//       Text(
+//         'Stats',
+//         style: TextStyle(color: Colors.black, fontSize: 20),
+//       ),
+//       SizedBox(height: 15),
+//       Center(
+//         child: Text(
+//           'Flutter is Google’s UI toolkit for building beautiful, natively compiled applications'
+//           ' for mobile, web, and desktop from a single codebase.',
+//           style: TextStyle(
+//               color: Colors.black.withOpacity(0.8),
+//               fontSize: 12,
+//               fontWeight: FontWeight.w500),
+//           textAlign: TextAlign.center,
+//         ),
+//       ),
+//       SizedBox(height: 10),
+//     ],
+//   );
+// }
 
 //   Widget bottomCardWidget(Task task) {
 //     Future<List<UserModel>> getUserDetailsById(List<String>? ids) async {
@@ -228,8 +220,11 @@ class _BottomCardWidgetState extends State<BottomCardWidget> {
       for (var id in ids ?? []) {
         final DocumentSnapshot documentSnapshot =
             await FirebaseFirestore.instance.collection('users').doc(id).get();
-        users.add(
-            UserModel.fromMap(documentSnapshot.data() as Map<String, dynamic>));
+        users.add(UserModel.fromMap(
+          documentSnapshot.data() as Map<String, dynamic>,
+          favoriteTasks:
+              List<String>.from(documentSnapshot.get('favoriteTasks') ?? []),
+        ));
       }
       return users;
     } catch (e) {
@@ -240,148 +235,200 @@ class _BottomCardWidgetState extends State<BottomCardWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print('favoriteUsers: ${widget.task.favoriteUsers}');
+
     return FutureBuilder<List<UserModel>>(
         future: getUserDetailsById(widget.task.favoriteUsers),
         builder: (context, snapshot) {
+          // Check if the snapshot has an error
+          if (snapshot.hasError) {
+            print('Error in getUserDetailsById: ${snapshot.error}');
+          }
+
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.data!.isEmpty)
-              return  Center(
+              return Center(
                 child: Text("noDetails".tr),
               );
-          double? averageAge = snapshot.data != null
-    ? snapshot.data!
-        .map((u) => double.parse(u.age))
-        .reduce((a, b) => a + b) /
-        snapshot.data!.length
-    : null;
-  List<UserModel>? noOfMales = snapshot.data?.where((u) => u.sex == 'Gender.Male').toList();
-List<UserModel>? noOfFemales = snapshot.data?.where((u) => u.sex == 'Gender.Female').toList();
+            int oldUsers = 0;
+            int newUsers = 0;
+            for (var user in snapshot.data!) {
+              if (user.favoriteTasks != null &&
+                  user.favoriteTasks!.length > 3) {
+                oldUsers++;
+              } else {
+                newUsers++;
+              }
+            }
+            double? averageAge = snapshot.data != null
+                ? snapshot.data!
+                        .map((u) => double.parse(u.age))
+                        .reduce((a, b) => a + b) /
+                    snapshot.data!.length
+                : null;
+            List<UserModel>? noOfMales =
+                snapshot.data?.where((u) => u.sex == 'Gender.Male').toList();
+            List<UserModel>? noOfFemales =
+                snapshot.data?.where((u) => u.sex == 'Gender.Female').toList();
             return Padding(
-               padding: EdgeInsets.all(20.0),
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-        elevation: 7,
-        shadowColor: Colors.grey,
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Center(
-            
-        
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'averageAge'.tr,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
+              padding: EdgeInsets.all(20.0),
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25)),
+                elevation: 7,
+                shadowColor: Colors.grey,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Center(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'oldUsers'.tr + ': $oldUsers',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
                           ),
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
-                          averageAge!.toStringAsFixed(0),
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
+                          const SizedBox(
+                            height: 15,
                           ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'noOfMales'.tr,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'newUsers'.tr + ': $newUsers',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
                           ),
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
-                          noOfMales?.length.toString() ?? '0',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
+                          const SizedBox(
+                            height: 15,
                           ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'noOfFemales'.tr,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'averageAge'.tr,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                averageAge!.toStringAsFixed(0),
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
                           ),
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
-                          noOfFemales?.length.toString() ?? '0',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
+                          const SizedBox(
+                            height: 15,
                           ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      'listOfUsers'.tr,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'noOfMales'.tr,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                noOfMales?.length.toString() ?? '0',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'noOfFemales'.tr,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                noOfFemales?.length.toString() ?? '0',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Text(
+                            'listOfUsers'.tr,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (context, index) {
+                              return Text(
+                                snapshot.data![index].name,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                textAlign: TextAlign.center,
+                              );
+                            },
+                          ),
+                        ],
                       ),
-                      textAlign: TextAlign.center,
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        return Text(
-                          snapshot.data![index].name,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          textAlign: TextAlign.center,
-                        );
-                      },
-                    ),
-                  ],
+                  ),
                 ),
               ),
-          ),
-          ),
-          ),
             );
           }
           return const CircularProgressIndicator();

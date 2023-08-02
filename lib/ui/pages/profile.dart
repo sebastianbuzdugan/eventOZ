@@ -10,7 +10,8 @@ import '../widgets/form_vertical_spacing.dart';
 class HomeUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
+double w = MediaQuery.of(context).size.width;
+    double h = MediaQuery.of(context).size.height;
     return GetBuilder<AuthController>(
       init: AuthController(),
       builder: (controller) => controller.firestoreUser.value!.uid == null
@@ -28,7 +29,7 @@ class HomeUI extends StatelessWidget {
               body: Center(
                 child: Column(
                   children: <Widget>[
-                    SizedBox(height: 120),
+                    SizedBox(height: h * 0.05),
                     Avatar(controller.firestoreUser.value!, 70),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,

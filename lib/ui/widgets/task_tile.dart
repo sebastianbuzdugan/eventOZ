@@ -15,7 +15,7 @@ class TaskTile extends StatelessWidget {
   Widget build(BuildContext context) {
      
 
-   if (task.titl2 == null ||
+   if (task.title == null ||
     task.location == null ||
     task.note == null ||
     task.price == null ||
@@ -23,7 +23,7 @@ class TaskTile extends StatelessWidget {
     task.endTime == null ||
     task.date == null) {
   // Log the null values to the console
-  print('task.titl2: ${task.titl2}');
+  print('task.title: ${task.title}');
   print('task.location: ${task.location}');
   print('task.note: ${task.note}');
   print('task.price: ${task.price}');
@@ -53,7 +53,7 @@ class TaskTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  task.titl2!,
+                  task.title!,
                   style: GoogleFonts.lato(
                     textStyle: TextStyle(
                       fontSize: 20,

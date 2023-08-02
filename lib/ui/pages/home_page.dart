@@ -39,7 +39,6 @@ class _HomePageState extends State<HomePage> {
         locationWeather: weatherData,
       );
     }));
-    print(weatherData);
   }
 
   /// IMPORTANT don't use this directly in the FutureBuilder
@@ -47,7 +46,7 @@ class _HomePageState extends State<HomePage> {
     bool isAdmin = await Get.find<AuthController>().isAdmin();
     return [
       Home(isAdmin: isAdmin),
-      ChatScreen(),
+      ChatScreen(isAdmin: isAdmin),
       Fav(),
       Settings(),
       HomeUI(),
@@ -126,7 +125,7 @@ class _HomePageState extends State<HomePage> {
            icon: const Icon(Icons.navigation_rounded),
             color: darkGreyClr,
            onPressed: () {
-             Get.to(HomeMap());
+            
            }            
                                
          

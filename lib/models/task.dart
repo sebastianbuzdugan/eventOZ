@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Task {
   int? id;
   // String? title;
-  String? titl2;
+  String? title;
   String? price;
   String? location;
   String? note;
@@ -22,7 +22,7 @@ class Task {
   Task({
     this.id,
     // this.title,
-    this.titl2,
+    this.title,
     this.price,
     this.location,
     this.note,
@@ -42,7 +42,7 @@ class Task {
   // Task.fromJson(Map<String, dynamic> json) {
   //   id = json['id'];
   //   // title = json['title'];
-  //   titl2 = json['titl2'];
+  //   title = json['title'];
 
   //   price= json['price'];
   //   location=json['location'];
@@ -61,7 +61,7 @@ class Task {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     //  data['title'] = this.title;
-    data['titl2'] = this.titl2;
+    data['title'] = this.title;
 
     data['price'] = this.price;
     data['location'] = this.location;
@@ -81,7 +81,7 @@ class Task {
   factory Task.fromMap(Map<String, dynamic> map) {
   return Task(
     id: map['id'],
-    titl2: map['titl2'],
+    title: map['title'],
     price: map['price'],
     location: map['location'],
     note: map['note'],

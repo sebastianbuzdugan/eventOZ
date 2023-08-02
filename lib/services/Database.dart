@@ -54,7 +54,7 @@ class DatabaseService {
   Task _singleTaskFromSnapshot(DocumentSnapshot doc) {
     return Task(
         note: doc.get('note') ?? '',
-        titl2: doc.get('title') ?? '',
+        title: doc.get('title') ?? '',
         price: doc.get('price') ?? 0,
         location: doc.get('location') ?? '',
         date: doc.get('date') ?? '',
@@ -85,7 +85,7 @@ class DatabaseService {
     return snapshot.docs.map((doc) {
       return Task(
         note: doc.get('note') ?? '',
-        titl2: doc.get('title') ?? '',
+        title: doc.get('title') ?? '',
         price: doc.get('price') ?? 0,
         location: doc.get('location') ?? '',
         date: doc.get('date') ?? '',
@@ -141,4 +141,8 @@ class DatabaseService {
       "favoriteUsers": FieldValue.arrayRemove([uid])
     }, SetOptions(merge: true));
   }
+  Future<void> deleteTask(String taskId) async {
+  return await _firestore.collection('tasks').doc(taskId).delete();
+}
+
 }

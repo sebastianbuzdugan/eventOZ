@@ -1,242 +1,172 @@
 // import 'package:flutter/material.dart';
-// import 'package:flutter_gmaps/directions_model.dart';
-// import 'package:flutter_gmaps/directions_repository.dart';
+// import 'package:flutter_google_places_hoc081098/flutter_google_places_hoc081098.dart';
+// import 'package:get/get_utils/src/extensions/internacionalization.dart';
+// import 'package:google_api_headers/google_api_headers.dart';
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:google_maps_webservice/places.dart';
+// import 'package:loginv1/constants/theme.dart';
+// import '../../services/location.dart';
+// import 'package:http/http.dart' as http;
+// import 'dart:convert';
 
-// class MapScreen extends StatefulWidget {
+// class HomeMap extends StatefulWidget {
 //   @override
-//   _MapScreenState createState() => _MapScreenState();
+//   _HomeMapState createState() => _HomeMapState();
 // }
 
-// class _MapScreenState extends State<MapScreen> {
-//   static const _initialCameraPosition = CameraPosition(
-//     target: LatLng(37.773972, -122.431297),
-//     zoom: 11.5,
-//   );
+// class _HomeMapState extends State<HomeMap> {
+//   Set<Marker> _markers = {};
+//   MyLocation _location = MyLocation();
 
-//   GoogleMapController _googleMapController;
-//   Marker _origin;
-//   Marker _destination;
-//   Directions _info;
-
-//   @override
-//   void dispose() {
-//     _googleMapController.dispose();
-//     super.dispose();
+//   Future<Map<String, dynamic>> _getDirections(
+//       LatLng origin, LatLng destination) async {
+//     String url =
+//         'https://maps.googleapis.com/maps/api/directions/json?origin=${origin.latitude},${origin.longitude}&destination=${destination.latitude},${destination.longitude}&mode=walking&key=$googleApikey';
+//     http.Response response = await http.get(Uri.parse(url));
+//     Map<String, dynamic> data = jsonDecode(response.body);
+//     return data;
 //   }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         centerTitle: false,
-//         title: const Text('Google Maps'),
-//         actions: [
-//           if (_origin != null)
-//             TextButton(
-//               onPressed: () => _googleMapController.animateCamera(
-//                 CameraUpdate.newCameraPosition(
-//                   CameraPosition(
-//                     target: _origin.position,
-//                     zoom: 14.5,
-//                     tilt: 50.0,
-//                   ),
-//                 ),
-//               ),
-//               style: TextButton.styleFrom(
-//                 primary: Colors.green,
-//                 textStyle: const TextStyle(fontWeight: FontWeight.w600),
-//               ),
-//               child: const Text('ORIGIN'),
-//             ),
-//           if (_destination != null)
-//             TextButton(
-//               onPressed: () => _googleMapController.animateCamera(
-//                 CameraUpdate.newCameraPosition(
-//                   CameraPosition(
-//                     target: _destination.position,
-//                     zoom: 14.5,
-//                     tilt: 50.0,
-//                   ),
-//                 ),
-//               ),
-//               style: TextButton.styleFrom(
-//                 primary: Colors.blue,
-//                 textStyle: const TextStyle(fontWeight: FontWeight.w600),
-//               ),
-//               child: const Text('DEST'),
-//             )
-//         ],
-//       ),
-//       body: Stack(
-//         alignment: Alignment.center,
-//         children: [
-//           GoogleMap(
-//             myLocationButtonEnabled: false,
-//             zoomControlsEnabled: false,
-//             initialCameraPosition: _initialCameraPosition,
-//             onMapCreated: (controller) => _googleMapController = controller,
-//             markers: {
-//               if (_origin != null) _origin,
-//               if (_destination != null) _destination
-//             },
-//             polylines: {
-//               if (_info != null)
-//                 Polyline(
-//                   polylineId: const PolylineId('overview_polyline'),
-//                   color: Colors.red,
-//                   width: 5,
-//                   points: _info.polylinePoints
-//                       .map((e) => LatLng(e.latitude, e.longitude))
-//                       .toList(),
-//                 ),
-//             },
-//             onLongPress: _addMarker,
-//           ),
-//           if (_info != null)
-//             Positioned(
-//               top: 20.0,
-//               child: Container(
-//                 padding: const EdgeInsets.symmetric(
-//                   vertical: 6.0,
-//                   horizontal: 12.0,
-//                 ),
-//                 decoration: BoxDecoration(
-//                   color: Colors.yellowAccent,
-//                   borderRadius: BorderRadius.circular(20.0),
-//                   boxShadow: const [
-//                     BoxShadow(
-//                       color: Colors.black26,
-//                       offset: Offset(0, 2),
-//                       blurRadius: 6.0,
-//                     )
-//                   ],
-//                 ),
-//                 child: Text(
-//                   '${_info.totalDistance}, ${_info.totalDuration}',
-//                   style: const TextStyle(
-//                     fontSize: 18.0,
-//                     fontWeight: FontWeight.w600,
-//                   ),
-//                 ),
-//               ),
-//             ),
-//         ],
-//       ),
-//       floatingActionButton: FloatingActionButton(
-//         backgroundColor: Theme.of(context).primaryColor,
-//         foregroundColor: Colors.black,
-//         onPressed: () => _googleMapController.animateCamera(
-//           _info != null
-//               ? CameraUpdate.newLatLngBounds(_info.bounds, 100.0)
-//               : CameraUpdate.newCameraPosition(_initialCameraPosition),
+//   void _updateMarkers(LatLng position, String location) {
+//     setState(() {
+//       _markers.add(
+//         Marker(
+//           markerId: MarkerId(location),
+//           position: position,
+//           infoWindow: InfoWindow(title: location),
 //         ),
-//         child: const Icon(Icons.center_focus_strong),
+//       );
+//     });
+//   }
+
+//   void _goToCurrentLocation() async {
+//     await _location.getCurrentLocation();
+//     mapController?.animateCamera(
+//       CameraUpdate.newCameraPosition(
+//         CameraPosition(
+//           target: LatLng(_location.latitude, _location.longitude),
+//           zoom: 15.0,
+//         ),
 //       ),
 //     );
 //   }
 
-//   void _addMarker(LatLng pos) async {
-//     if (_origin == null || (_origin != null && _destination != null)) {
-//       // Origin is not set OR Origin/Destination are both set
-//       // Set origin
-//       setState(() {
-//         _origin = Marker(
-//           markerId: const MarkerId('origin'),
-//           infoWindow: const InfoWindow(title: 'Origin'),
-//           icon:
-//               BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
-//           position: pos,
-//         );
-//         // Reset destination
-//         _destination = null;
+//   String googleApikey = "AIzaSyDfj1IMdmkXlY1NiQ_FJyYxp768-5FCrVA";
+//   GoogleMapController? mapController; //contrller for Google map
+//   CameraPosition? cameraPosition;
+//   LatLng startLocation = LatLng(46.7571383, 23.5265539);
+//   String location = 'searchLoc'.tr;
 
-//         // Reset info
-//         _info = null;
-//       });
-//     } else {
-//       // Origin is already set
-//       // Set destination
-//       setState(() {
-//         _destination = Marker(
-//           markerId: const MarkerId('destination'),
-//           infoWindow: const InfoWindow(title: 'Destination'),
-//           icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
-//           position: pos,
-//         );
-//       });
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         appBar: AppBar(
+//           title: Text('currentLoc'.tr),
+//           backgroundColor: primaryClr,
+//           actions: [
+//             IconButton(
+//               icon: Icon(Icons.my_location),
+//               onPressed: _goToCurrentLocation,
+//             ),
+//           ],
+//         ),
+//         body: Stack(children: [
+//           GoogleMap(
+//             //Map widget from google_maps_flutter package
+//             myLocationButtonEnabled: false,
+//             markers: _markers,
+//             zoomGesturesEnabled: true, //enable Zoom in, out on map
+//             initialCameraPosition: CameraPosition(
+//               //innital position in map
+//               target: startLocation, //initial position
+//               zoom: 15.0, //initial zoom level
+//             ),
+//             mapType: MapType.normal, //map type
+//             onMapCreated: (controller) {
+//               //method called when map is created
+//               setState(() {
+//                 mapController = controller;
+//               });
+//             },
+//           ),
 
-//       // Get directions
-//       final directions = await DirectionsRepository()
-//           .getDirections(origin: _origin.position, destination: pos);
-//       setState(() => _info = directions);
-//     }
+//           //search autoconplete input
+//           Positioned(
+//               //search input bar
+//               top: 10,
+//               child: InkWell(
+//                   onTap: () async {
+//                     var place = await PlacesAutocomplete.show(
+//                         context: context,
+//                         apiKey: googleApikey,
+//                         mode: Mode.overlay,
+//                         types: [],
+//                         strictbounds: false,
+//                         components: [Component(Component.country, 'ro')],
+//                         //google_map_webservice package
+//                         onError: (err) {
+//                           print(err);
+//                         });
+
+//                     if (place != null) {
+//                       setState(() {
+//                         location = place.description.toString();
+//                       });
+
+//                       //form google_maps_webservice package
+//                       final plist = GoogleMapsPlaces(
+//                         apiKey: googleApikey,
+//                         apiHeaders: await GoogleApiHeaders().getHeaders(),
+//                         //from google_api_headers package
+//                       );
+//                       String placeid = place.placeId ?? "0";
+//                       final detail = await plist.getDetailsByPlaceId(placeid);
+//                       final geometry = detail.result.geometry!;
+//                       final lat = geometry.location.lat;
+//                       final lang = geometry.location.lng;
+//                       var newlatlang = LatLng(lat, lang);
+
+//                       //move map camera to selected place with animation
+//                       mapController?.animateCamera(
+//                           CameraUpdate.newCameraPosition(
+//                               CameraPosition(target: newlatlang, zoom: 15)));
+//                       _updateMarkers(newlatlang, location);
+//                       Map<String, dynamic> directions = await _getDirections(
+//                         LatLng(_location.latitude, _location.longitude),
+//                         newlatlang,
+//                       );
+
+//                       if (directions['status'] == 'OK') {
+//                         String duration = directions['routes'][0]['legs'][0]
+//                             ['duration']['text'];
+//                         ScaffoldMessenger.of(context).showSnackBar(
+//                           SnackBar(
+//                               content:
+//                                   Text('Estimated travel time: $duration')),
+//                         );
+//                       } else {
+//                         ScaffoldMessenger.of(context).showSnackBar(
+//                           SnackBar(content: Text('No route found')),
+//                         );
+//                       }
+//                     }
+//                   },
+//                   child: Padding(
+//                     padding: EdgeInsets.all(15),
+//                     child: Card(
+//                       child: Container(
+//                           padding: EdgeInsets.all(0),
+//                           width: MediaQuery.of(context).size.width - 40,
+//                           child: ListTile(
+//                             title: Text(
+//                               location,
+//                               style: TextStyle(fontSize: 18),
+//                             ),
+//                             trailing: Icon(Icons.search),
+//                             dense: true,
+//                           )),
+//                     ),
+//                   )))
+//         ]));
 //   }
 // }
-
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:loginv1/constants/theme.dart';
-
-class HomeMap extends StatefulWidget {
-  @override
-  _HomeMapState createState() => _HomeMapState();
-}
-
-class _HomeMapState extends State<HomeMap> {
-  GoogleMapController? mapController; //contrller for Google map
-  Set<Marker> markers = Set(); //markers for google map
-  LatLng showLocation = LatLng(46.7723135, 23.58261);
-  //location to show in map
-
-  @override
-  void initState() {
-    markers.add(Marker(
-      //add marker on google map
-      markerId: MarkerId(showLocation.toString()),
-      position: showLocation, //position of marker
-      infoWindow: InfoWindow(
-        //popup info
-        title: 'My Custom Title ',
-        snippet: 'My Custom Subtitle',
-      ),
-      icon: BitmapDescriptor.defaultMarker, //Icon for Marker
-    ));
-
-    //you can add more markers here
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("currentLoc".tr),
-        backgroundColor: primaryClr,
-      ),
-      body: GoogleMap(
-        //Map widget from google_maps_flutter package
-        zoomGesturesEnabled: true, //enable Zoom in, out on map
-        initialCameraPosition: CameraPosition(
-          //innital position in map
-          target: showLocation, //initial position
-          zoom: 15.0, //initial zoom level
-        ),
-        markers: markers, //markers to show on map
-        mapType: MapType.normal, //map type
-        onMapCreated: (controller) {
-          //method called when map is created
-          setState(() {
-            mapController = controller;
-          });
-
-          mapController!.animateCamera(
-            CameraUpdate.newLatLngZoom(showLocation, 15),
-          );
-          print('works');
-        },
-      ),
-    );
-  }
-}

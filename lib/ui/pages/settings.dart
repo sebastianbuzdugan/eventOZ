@@ -56,7 +56,7 @@ class _SettingsState extends State<Settings> {
     double w = MediaQuery.of(context).size.width;
     double h = MediaQuery.of(context).size.height;
     return Container(
-      width: w * 0.6,
+      width: w * 0.8,
       height: h * 0.07,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
@@ -100,7 +100,7 @@ class _SettingsState extends State<Settings> {
       },
       child: Container(
         width:
-            w * 0.40, // increase the width to create more space around the text
+            w * 0.4, // increase the width to create more space around the text
         height: h * 0.07,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
@@ -131,7 +131,7 @@ class _SettingsState extends State<Settings> {
         Get.to(UpdateProfileUI());
       },
       child: Container(
-        width: w * 0.50,
+        width: w * 0.6,
         height: h * 0.07,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
@@ -165,7 +165,8 @@ class _SettingsState extends State<Settings> {
           builder: (BuildContext context) {
             return Container(
               color: primaryClr,
-              height: 200,
+                width: w * 0.2,
+        height: h * 0.07,
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),

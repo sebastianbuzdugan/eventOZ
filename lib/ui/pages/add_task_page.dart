@@ -258,7 +258,7 @@
 //     await _taskController.addTask(
 //       task: Task(
 //         note: _noteController.text,
-//         titl2: _titleController.text,
+//         title: _titleController.text,
 //         price: _priceController.text,
 //         location: _locationController.text,
 //         date: DateFormat.yMd().format(_selectedDate),

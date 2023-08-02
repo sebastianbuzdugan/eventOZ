@@ -1,6 +1,3 @@
-//User Model
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class UserModel {
   final String uid;
   final String email;
@@ -9,7 +6,7 @@ class UserModel {
   final String sex;
   final String photoUrl;
   final List<String>? isFavorite;
-  
+  final List<String>? favoriteTasks;
 
   UserModel({
     required this.uid,
@@ -18,22 +15,23 @@ class UserModel {
     required this.sex,
     required this.age,
     required this.photoUrl,
-
     final List<String>? isFavorite,
-  }) : isFavorite = isFavorite ?? [];
+    final List<String>? favoriteTasks,
+  })  : isFavorite = isFavorite ?? [],
+        favoriteTasks = favoriteTasks ?? [];
 
-  factory UserModel.fromMap(Map data) {
+  factory UserModel.fromMap(Map data, {final List<String>? favoriteTasks}) {
     return UserModel(
-        uid: data['uid'],
-        email: data['email'] ?? '',
-        sex: data['sex'] ?? '',
-        name: data['name'] ?? '',
-        age: data['age'] ?? '',
-        photoUrl: data['photoUrl'] ?? '',
-   
-        isFavorite: List.from(data.toString().contains('favoriteTasks')
-            ? data['favoriteTasks']
-            : []));
+      uid: data['uid'],
+      email: data['email'] ?? '',
+      sex: data['sex'] ?? '',
+      name: data['name'] ?? '',
+      age: data['age'] ?? '',
+      photoUrl: data['photoUrl'] ?? '',
+      isFavorite:
+          List.from(data.toString().contains('favoriteTasks') ? data['favoriteTasks'] : []),
+      favoriteTasks: favoriteTasks ?? [],
+    );
   }
 
   Map<String, dynamic> toJson() => {
@@ -43,6 +41,5 @@ class UserModel {
         "sex": sex,
         "age": age,
         "photoUrl": photoUrl,
-        
       };
 }

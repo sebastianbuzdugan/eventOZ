@@ -6,6 +6,7 @@ import 'package:loginv1/controllers/controllers.dart';
 import 'package:loginv1/helpers/helpers.dart';
 import 'package:loginv1/ui/reglog/splash_screen.dart';
 import 'package:loginv1/ui/widgets/loading.dart';
+import 'controllers/language_controller.dart';
 import 'db/db_helper.dart';
 
 void main() async {

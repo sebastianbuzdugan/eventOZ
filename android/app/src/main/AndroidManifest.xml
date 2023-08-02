@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.flutter4f">
    <application
-        android:label="flutter4f"
+        android:label="eventOZ"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

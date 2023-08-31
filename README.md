@@ -25,3 +25,4 @@ O aplicație mobilă pentru expunerea evenimentelor, utilă atât pentru partici
 
 ## Video:
 
+https://www.youtube.com/watch?v=BpUaOywbONs
